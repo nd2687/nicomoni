@@ -1,14 +1,12 @@
-<div class="box" style="width:960px">
-  <div style="height:488px;width:960px;border solid 1px white;background-color:black">
+<div class="broadcastsField box">
+  <div class="prepareblock">
+    <div class="prepareFormField">
+      <%= form_for @broadcast, method: :post, remote: true, class: "form-group" do |f| %>
+        <%= f.text_field :url, placeholder: "ニコ生URLを入力 例)http://live.nicovideo.jp/watch/lv*******?ref=community", class: "form-control" %>
+        <%= f.submit '入力', type: 'submit', class: 'btn' %>
+      <% end %>
+    </div>
   </div>
-  <div style="height:488px;width:960px;border: solid 1px white;background-color:black">
-  </div>
-  <!-- <iframe src="http://live.nicovideo.jp/nicoliveplayer.swf?v=lv222344070&#38;amp;languagecode=ja&#45;jp" frameborder="0" height="488px" width="960px"> -->
-  <!--   <embed type="application/x&#45;shockwave&#45;flash" src="http://live.nicovideo.jp/nicoliveplayer.swf?v=lv222344070&#38;amp;languagecode=ja&#45;jp" name="plugin" height="100%" width="100%"> -->
-  <!-- </iframe> -->
-  <!-- <iframe src="http://live.nicovideo.jp/nicoliveplayer.swf?v=lv222344070&#38;amp;languagecode=ja&#45;jp" frameborder="0" height="488px" width="960px"> -->
-  <!--   <embed type="application/x&#45;shockwave&#45;flash" src="http://live.nicovideo.jp/nicoliveplayer.swf?v=lv222344070&#38;amp;languagecode=ja&#45;jp" name="plugin" height="100%" width="100%"> -->
-  <!-- </iframe> -->
 </div>
 <div class="box">
   <div style="height:300px;width:400px;border: solid 1px;">
