@@ -1,0 +1,9 @@
+<%= form_for @user, method: :post do |f| %>
+  <%= f.label "ニックネーム", :nickname %>
+  <%= f.text_field :nickname %>
+  <%= f.label "パスワード", :password %>
+  <%= f.password_field :password %>
+  <%= f.label "パスワード(再入力)", :password_confirmation %>
+  <%= f.password_field :password_confirmation %>
+  <%= f.submit "登録" %>
+<% end %>

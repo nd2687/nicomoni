@@ -19,6 +19,11 @@
             <li class="pure-menu-item"><a href="#" class="pure-menu-link">Help</a></li>
             <li class="pure-menu-item"><a href="#" class="pure-menu-link">Board</a></li>
             <li class="pure-menu-item"><a href="#" class="pure-menu-link">Ranking</a></li>
+            <% if current_user %>
+              <%= link_to "Loout", :session, method: :delete, data: { confirm: "ログアウトしますか？" } %>
+            <% else %>
+              <%= link_to "Login", :new_session %>
+            <% end %>
         </ul>
     </div>
 </div>

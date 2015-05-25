@@ -1,0 +1,10 @@
+<div class="col-xs-3 well">
+<%= form_tag :session, class: "form-group" do %>
+  <%= label_tag :nickanme, "ニックネーム" %>
+  <%= text_field_tag :nickname, '', class: "form-control", placeholder: "ニックネーム" %>
+  <%= label_tag :password, "パスワード" %>
+  <%= password_field_tag :password, '', class: 'form-control', placeholder: "パスワード" %>
+  <br>
+  <%= submit_tag "ログイン", type: 'submit', class: 'btn btn-default' %>
+<% end %>
+</div>
