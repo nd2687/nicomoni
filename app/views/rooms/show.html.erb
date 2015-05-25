@@ -11,10 +11,12 @@
 <div class="box">
   <div style="height:300px;width:400px;border: solid 1px;">
     <%= "Room名 #{@room.name}" %>
-    <%= "制限人数 #{@room.number}人" %>
-    <%= "オーナー #{@room.user.nickname}" %>
+    <%= "制限人数 #{@room.active_number}/#{@room.number}人" %>
+    <%= "オーナー #{@room.owner_name}" %>
     <br>
-    <%= link_to 'このRoomを削除する', @room, method: :delete, data: { confirm: "この処理は元に戻せません。\n本当に削除しますか？" } %>
+    <% if current_user.owner?(@room) %>
+      <%= link_to 'このRoomを削除する', @room, method: :delete, data: { confirm: "この処理は元に戻せません。\n本当に削除しますか？" } %>
+    <% end %>
   </div>
   <div class="commentBox">
   comments<br>

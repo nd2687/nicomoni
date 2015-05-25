@@ -11,8 +11,23 @@ class RoomsController < ApplicationController
   end
 
   def show
-    @broadcast = Broadcast.new
     @room = Room.find_by_url_token(params[:url_token])
+    if current_user
+      current_user.update(room_url_token: @room.url_token)
+    end
+    if @room.full? && !@room.users.include?(current_user)
+      flash[:alert] = "満員です。"
+      redirect_to :rooms
+    else
+      @broadcast = Broadcast.new
+      if current_user && !@room.users.include?(current_user)
+        @room.room_users.create(user: current_user)
+        @room.enter
+      elsif current_user && @room.users.include?(current_user)
+      else
+        @room.enter
+      end
+    end
   end
 
   def new
@@ -30,6 +45,7 @@ class RoomsController < ApplicationController
       redirect_to :rooms
     else
       @room = current_user.rooms.new(room_params)
+      @room.owner_id = current_user.id
       session[:room_url_token] = @room.url_token
       if @room.save
         redirect_to room_path(url_token: @room.url_token)

@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many :comments
-  has_many :rooms
+  has_many :room_users
+  has_many :rooms, :through => :room_users
 
   attr_accessor :password, :password_confirmation, :setting_password
   alias_method :setting_password?, :setting_password
@@ -28,5 +29,13 @@ class User < ActiveRecord::Base
 
   def active_room
     self.rooms.where(deletable: false).first
+  end
+
+  def owner?(room)
+    if room.owner == self
+      true
+    else
+      false
+    end
   end
 end

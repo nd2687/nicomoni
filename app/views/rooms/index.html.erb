@@ -18,7 +18,7 @@ Roomに入ることで他の人とライブストリーミングを共有でき�
           Room名
         </th>
         <th>
-          人数制限
+          入室人数 / 人数制限
         </th>
         <th></th>
       </tr>
@@ -28,7 +28,7 @@ Roomに入ることで他の人とライブストリーミングを共有でき�
             <%= room.name %>
           </td>
           <td>
-            <%= room.number %>
+            <%= "#{room.active_number} / #{room.number}" %>
           </td>
           <td>
             <%= link_to 'このRoomへ行く', room_path(url_token: room.url_token) %>
