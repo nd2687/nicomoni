@@ -8,9 +8,10 @@ class BroadcastsController < ApplicationController
   def create
     @broadcast = Broadcast.new(broadcast_params)
     if @broadcast.save
+      render json: [ @broadcast ]
     else
+      render json: [ false ]
     end
-    render json: [ @broadcast ]
   end
 
   private

@@ -15,4 +15,8 @@ $(document).on("ready page:load", function() {
     count += 1;
     if(count === 2){ form.parents('.prepareblock').remove(); }
   });
+
+  form.bind("ajax:error", function(e, data, status, xhr) {
+    alert("error");
+  })
 });
