@@ -1,5 +1,5 @@
 # README
-
+### 環境構築(Javascript パッケージ管理)
 `npm init`...npm初期化。node_modulesディレクトリとpackage.jsonが作成される。bowerのバージョンを管理する。node_modulesディレクトリは.gitignoreする。
 
 `./node_modules/bower/bin/bower init`...bower初期化。bower.jsonが作成される。javascriptのパッケージのバージョン管理をする。.bowerrcを手動で作成して、bower_componentsが作成されるディレクトリを指定する。
