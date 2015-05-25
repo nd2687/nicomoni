@@ -1,1 +1,140 @@
-<%= @room.name %>
+<div class="broadcastsField box">
+  <div class="prepareblock">
+    <div class="prepareFormField">
+      <%= form_for @broadcast, method: :post, remote: true, class: "form-group" do |f| %>
+        <%= f.text_field :url, placeholder: "ニコ生URLを入力 例)http://live.nicovideo.jp/watch/lv*******?ref=community", class: "form-control" %>
+        <%= f.submit '入力', type: 'submit', class: 'btn' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="box">
+  <div style="height:300px;width:400px;border: solid 1px;">
+    <%= "Room名 #{@room.name}" %>
+    <%= "制限人数 #{@room.number}人" %>
+    <%= "オーナー #{@room.user.nickname}" %>
+    <br>
+    <%= link_to 'このRoomを削除する', @room, method: :delete, data: { confirm: "この処理は元に戻せません。\n本当に削除しますか？" } %>
+  </div>
+  <div class="commentBox">
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  comments<br>
+  </div>
+</div>

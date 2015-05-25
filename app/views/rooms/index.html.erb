@@ -2,3 +2,38 @@
 Roomに入ることで他の人とライブストリーミングを共有できます。
 自分でRoomを作成したい場合はユーザー登録が必要です。
 <%= link_to "Roomを作成する", :new_room %>
+<br>
+<br>
+<% if current_user && current_user.active_room? %>
+  <%= link_to "Roomへ戻る", room_path(url_token: current_user.active_room.url_token), class: 'btn btn-info' %>
+<% end %>
+
+<br>
+<br>
+<br>
+<table class="table table-striped">
+  <% if @rooms.present? %>
+      <tr>
+        <th>
+          Room名
+        </th>
+        <th>
+          人数制限
+        </th>
+        <th></th>
+      </tr>
+      <% @rooms.each do |room| %>
+        <tr>
+          <td>
+            <%= room.name %>
+          </td>
+          <td>
+            <%= room.number %>
+          </td>
+          <td>
+            <%= link_to 'このRoomへ行く', room_path(url_token: room.url_token) %>
+          </td>
+        </tr>
+      <% end %>
+  <% end %>
+</table>

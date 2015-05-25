@@ -25,4 +25,8 @@ class User < ActiveRecord::Base
   def active_room?
     self.rooms.where(deletable: false).count > 0 ? true : false
   end
+
+  def active_room
+    self.rooms.where(deletable: false).first
+  end
 end

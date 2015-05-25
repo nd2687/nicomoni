@@ -5,6 +5,8 @@ class Room < ActiveRecord::Base
   validates :name, presence: true
   validates :number, presence: true
 
+  scope :published, -> { where(deletable: false, private: false) }
+
   after_initialize :set_url_token
 
   private
