@@ -1,0 +1,21 @@
+{
+  "name": "nicomoni",
+  "version": "0.0.0",
+  "authors": [
+    "Takashi Kawano <kawano.fanta@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass-official": "~3.3.4",
+    "jquery-ui": "~1.11.4",
+    "jquery-ujs": "~1.0.3",
+    "pure": "~0.6.0"
+  }
+}
