@@ -14,34 +14,37 @@
 ActiveRecord::Schema.define(version: 20150525073411) do
 
   create_table "broadcasts", force: :cascade do |t|
-    t.string   "url",        null: false
-    t.string   "platform",   null: false
-    t.string   "player_url", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "url",        limit: 255, null: false
+    t.string   "platform",   limit: 255, null: false
+    t.string   "player_url", limit: 255, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer  "room_id",    null: false
-    t.integer  "user_id"
-    t.string   "body",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "room_id",    limit: 4,   null: false
+    t.integer  "user_id",    limit: 4
+    t.string   "body",       limit: 255, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "rooms", force: :cascade do |t|
-    t.string   "url",        null: false
-    t.string   "number",     null: false
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",       limit: 255,                 null: false
+    t.string   "url_token",  limit: 255,                 null: false
+    t.integer  "number",     limit: 4,                   null: false
+    t.integer  "user_id",    limit: 4,                   null: false
+    t.boolean  "private",    limit: 1,   default: false, null: false
+    t.boolean  "deletable",  limit: 1,   default: false, null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "nickname",        null: false
-    t.string   "password_digest", null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "nickname",        limit: 255, null: false
+    t.string   "password_digest", limit: 255, null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
 end

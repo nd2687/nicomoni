@@ -2,6 +2,9 @@ class UsersController < ApplicationController
   layout 'users'
 
   def index
+    unless current_user
+      redirect_to :new_user
+    end
   end
 
   def new
@@ -12,8 +15,11 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.setting_password = true
     if @user.save
+      session[:current_user_id] = @user.id
+      flash.notice = "ユーザー作成しました。"
       redirect_to :users
     else
+      flash.now[:alert] = "エラー"
       render action: 'new'
     end
   end

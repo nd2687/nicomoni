@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-xs-3 well">
+    <%= form_for @room, method: :create, class: "form-group" do |f| %>
+      <%= f.label :name, "Room名" %>
+      <%= f.text_field :name, placeholder: "Room名", class: 'form-control'  %>
+      <%= f.label :number, "人数" %>
+      <%= f.number_field :number, placeholder: "人数", class: 'form-control' %>
+      <%= f.label :private, "鍵部屋" %>
+      <%= f.check_box :private %>
+      <br>
+      ※鍵部屋にチェックを入れるとRoom一覧から非表示にできます。
+      共有したい方へはRoom名か、URLを教えてください。
+      <br>
+      <%= f.submit "作成", type: 'submit', class: 'btn btn-default' %>
+    <% end %>
+  </div>
+</div>
