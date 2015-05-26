@@ -1,12 +1,10 @@
-<div class="col-xs-3 well">
-<%= form_tag :session, class: "form-group" do %>
+<%= form_tag :session, { method: :post, class: "pure-form pure-form-stacked" } do %>
   <%= label_tag :nickanme, "ニックネーム" %>
-  <%= text_field_tag :nickname, '', class: "form-control", placeholder: "ニックネーム" %>
+  <%= text_field_tag :nickname, '', placeholder: "ニックネーム", required: true %>
   <%= label_tag :password, "パスワード" %>
-  <%= password_field_tag :password, '', class: 'form-control', placeholder: "パスワード" %>
-  <%= check_box_tag :remember, true, false %>
-  <%= label_tag :remember, "次回から自動でログイン" %>
-  <br>
-  <%= submit_tag "ログイン", type: 'submit', class: 'btn btn-default' %>
+  <%= password_field_tag :password, '', placeholder: "パスワード", required: true %>
+  <label for="remember" class="pure-checkbox">
+    <%= check_box_tag :remember, true, false %> 次回から自動でログイン
+  </label>
+  <%= submit_tag "ログイン", type: 'submit', class: 'pure-button pure-button-primary' %>
 <% end %>
-</div>

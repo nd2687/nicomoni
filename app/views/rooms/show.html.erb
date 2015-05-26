@@ -14,7 +14,7 @@
     <%= "制限人数 #{@room.active_number}/#{@room.number}人" %>
     <%= "オーナー #{@room.owner_name}" %>
     <br>
-    <% if current_user.owner?(@room) %>
+    <% if current_user && current_user.owner?(@room) %>
       <%= link_to 'このRoomを削除する', @room, method: :delete, data: { confirm: "この処理は元に戻せません。\n本当に削除しますか？" } %>
     <% end %>
   </div>

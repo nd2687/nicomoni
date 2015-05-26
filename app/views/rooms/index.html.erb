@@ -11,8 +11,9 @@ Roomに入ることで他の人とライブストリーミングを共有でき�
 <br>
 <br>
 <br>
-<table class="table table-striped">
+<table class="pure-table pure-table-striped">
   <% if @rooms.present? %>
+    <thead>
       <tr>
         <th>
           Room名
@@ -22,6 +23,7 @@ Roomに入ることで他の人とライブストリーミングを共有でき�
         </th>
         <th></th>
       </tr>
+    </thead>
       <% @rooms.each do |room| %>
         <tr>
           <td>
@@ -31,7 +33,11 @@ Roomに入ることで他の人とライブストリーミングを共有でき�
             <%= "#{room.active_number} / #{room.number}" %>
           </td>
           <td>
-            <%= link_to 'このRoomへ行く', room_path(url_token: room.url_token) %>
+            <% if room.full? %>
+              <div style="color:red;">満員</div>
+            <% else %>
+              <%= link_to 'このRoomへ行く', room_path(url_token: room.url_token) %>
+            <% end %>
           </td>
         </tr>
       <% end %>
