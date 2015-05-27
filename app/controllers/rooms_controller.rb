@@ -47,6 +47,7 @@ class RoomsController < ApplicationController
       if @room.save
         redirect_to room_path(url_token: @room.url_token)
       else
+        flash.now[:alert] = "エラー"
         render action: 'new'
       end
     end

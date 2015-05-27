@@ -1,7 +1,7 @@
 <%= form_for @room, html: { class: 'pure-form pure-form-stacked', role: 'form' } do |f| %>
   <%= f.label :name, "Room名" %>
   <%= f.text_field :name, placeholder: "Room名", required: true  %>
-  <%= f.label :number, "人数" %>
+  <%= f.label :number, "人数(2人以上)" %>
   <%= f.number_field :number, placeholder: "人数", required: true %>
   <label for="room_private" class="pure-checkbox">
     <%= f.check_box :private %> 鍵部屋

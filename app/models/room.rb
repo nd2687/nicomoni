@@ -5,7 +5,10 @@ class Room < ActiveRecord::Base
   belongs_to :owner, :class_name => "User"
 
   validates :name, presence: true
-  validates :number, presence: true
+  validates :number, presence: true,
+    numericality: {
+      only_integer: true, greater_than_or_equal_to: 2
+    }
 
   scope :published, -> { where(deletable: false, private: false) }
 
