@@ -20,3 +20,9 @@ group :development, :test do
   gem 'spring'
 end
 
+group :test do
+  gem 'rspec-rails', '~> 3.1.0'
+  gem 'capybara', '~> 2.4.1'
+  gem 'factory_girl_rails', '~> 4.4.1'
+  gem 'launchy'
+end

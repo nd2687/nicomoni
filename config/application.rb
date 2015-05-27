@@ -14,7 +14,7 @@ module Nicomoni
     config.generators do |g|
       g.assets = false
       g.helper = false
-      g.test_framework  :rspec, :fixture => false
+      g.test_framework :rspec, :fixture => false
     end
   end
 end
