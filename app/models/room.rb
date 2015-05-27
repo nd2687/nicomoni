@@ -2,6 +2,7 @@ class Room < ActiveRecord::Base
   has_many :room_users
   has_many :users, :through => :room_users
   has_many :comments
+  belongs_to :owner, :class_name => "User"
 
   validates :name, presence: true
   validates :number, presence: true
@@ -10,10 +11,16 @@ class Room < ActiveRecord::Base
 
   after_initialize :set_url_token
 
+  after_save do
+    self.room_users.destroy_all if deletable == true
+  end
+
   def enter
     if active_number < number
       increment! :active_number
-      self.update(full: true) if self.active_number == self.number
+      if self.active_number == self.number && self.number == self.room_users.count
+        self.update(full: true)
+      end
     end
   end
 

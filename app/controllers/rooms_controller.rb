@@ -1,5 +1,5 @@
 class RoomsController < ApplicationController
-  before_action :authorize_user, except: [ :index, :show ]
+  before_action :authorize_user, except: :index
 
   layout 'rooms'
 
@@ -23,9 +23,6 @@ class RoomsController < ApplicationController
       if current_user && !@room.users.include?(current_user)
         flash[:notice] = "入室しました。"
         @room.room_users.create(user: current_user)
-      elsif current_user && @room.users.include?(current_user)
-      else
-        @room.enter
       end
     end
   end
@@ -45,7 +42,7 @@ class RoomsController < ApplicationController
       redirect_to :rooms
     else
       @room = current_user.rooms.new(room_params)
-      @room.owner_id = current_user.id
+      @room.owner = current_user
       session[:room_url_token] = @room.url_token
       if @room.save
         redirect_to room_path(url_token: @room.url_token)
@@ -66,7 +63,7 @@ class RoomsController < ApplicationController
     room_user = current_user.room_users.where(room: @room).first
     room_user.destroy!
     @room.exit
-    flash.notice = "退室しました。"
+    flash[:notice] = "退室しました。"
     redirect_to :rooms
   end
 

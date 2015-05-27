@@ -11,6 +11,8 @@ module Nicomoni
     config.time_zone = 'Tokyo'
     config.active_record.raise_in_transactional_callbacks = true
 
+    config.generators.fixture_replacement :factory_girl, dir: 'spec/factories'
+
     config.generators do |g|
       g.assets = false
       g.helper = false
