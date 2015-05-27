@@ -21,8 +21,8 @@ class RoomsController < ApplicationController
     else
       @broadcast = Broadcast.new
       if current_user && !@room.users.include?(current_user)
+        flash[:notice] = "入室しました。"
         @room.room_users.create(user: current_user)
-        @room.enter
       elsif current_user && @room.users.include?(current_user)
       else
         @room.enter
@@ -58,6 +58,15 @@ class RoomsController < ApplicationController
   def destroy
     current_user.active_room.update(deletable: true)
     flash[:notice] = "Roomを削除しました。"
+    redirect_to :rooms
+  end
+
+  def exit_room
+    @room = Room.find_by(url_token: params[:url_token])
+    room_user = current_user.room_users.where(room: @room).first
+    room_user.destroy!
+    @room.exit
+    flash.notice = "退室しました。"
     redirect_to :rooms
   end
 

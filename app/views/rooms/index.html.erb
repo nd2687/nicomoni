@@ -36,7 +36,9 @@ Roomに入ることで他の人とライブストリーミングを共有でき�
             <% if room.full? %>
               <div style="color:red;">満員</div>
             <% else %>
-              <%= link_to 'このRoomへ行く', room_path(url_token: room.url_token) %>
+              <% unless current_user && current_user.active_room? %>
+                <%= link_to 'このRoomへ行く', room_path(url_token: room.url_token) %>
+              <% end %>
             <% end %>
           </td>
         </tr>

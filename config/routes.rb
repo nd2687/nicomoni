@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resource :session, only: [ :new, :create, :destroy ]
   resource :broadcasts
   resources :rooms, param: :url_token do
+    delete :exit_room, on: :member
     resources :comments
   end
   resources :users
