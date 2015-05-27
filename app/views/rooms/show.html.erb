@@ -13,12 +13,17 @@
     <%= "Room名 #{@room.name}" %>
     <%= "制限人数 #{@room.active_number}/#{@room.number}人" %>
     <%= "オーナー #{@room.owner_name}" %>
+    <%= image_tag("/images/user_icons/user#{@room.owner.icon_number}.png", size: "35x35") %>
     <% if current_user && current_user.owner?(@room) %>
       <%= link_to 'このRoomを削除する', @room, method: :delete, data: { confirm: "この処理は元に戻せません。\n本当に削除しますか？" } %>
     <% elsif current_user %>
       <%= link_to "退室", exit_room_room_path(url_token: @room.url_token), method: :delete, data: { confirm: "退室しますか？" } %>
     <% else %>
     <% end %>
+    <br>
+  <% @room.room_users.each do |room_user| %>
+    <%= image_tag("/images/user_icons/user#{room_user.user.icon_number}.png", size: "30x30") %>
+  <% end %>
   </div>
   <div class="commentBox">
   comments<br>

@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   alias_method :setting_password?, :setting_password
 
   validates :nickname, presence: true
-  validates :password, confirmation: true, presence: true
+  validates :password, confirmation: true, presence: true, on: :create
 
   before_save do
     if setting_password?

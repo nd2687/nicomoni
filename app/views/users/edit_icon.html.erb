@@ -1,0 +1,9 @@
+<%= form_for [ :update_icon, @user ], html: { class: 'pure-form', role: 'form' } do |f| %>
+  <% icon_list.each.with_index(1) do |icon, index| %>
+    <div style="display:inline-block;">
+      <%= f.radio_button :icon_number, index %>
+      <%= f.label index, image_tag(icon), for: "user_icon_number_#{index}" %>
+    </div>
+  <% end %>
+  <%= f.submit "決定", type: 'submit', class: 'pure-button pure-button-primary' %>
+<% end %>

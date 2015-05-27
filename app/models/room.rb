@@ -39,7 +39,7 @@ class Room < ActiveRecord::Base
   end
 
   def generate_url_token
-    token = SecureRandom.urlsafe_base64(64)
+    token = SecureRandom.urlsafe_base64(40)
     self.class.where(url_token: token).blank? ? token : generate_url_token
   end
 end

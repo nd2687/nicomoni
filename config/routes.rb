@@ -7,5 +7,8 @@ Rails.application.routes.draw do
     delete :exit_room, on: :member
     resources :comments
   end
-  resources :users
+  resources :users do
+    get :edit_icon, on: :member
+    patch :update_icon, on: :member
+  end
 end

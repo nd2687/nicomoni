@@ -1,1 +1,3 @@
-<%= current_user.nickname %> さんようこそ
+<h2><%= "#{current_user.nickname}さんようこそ" %></h2>
+<%= image_tag("/images/user_icons/user#{current_user.icon_number}.png") %>
+<%= link_to "アイコンを変更", [ :edit_icon, current_user ] %>

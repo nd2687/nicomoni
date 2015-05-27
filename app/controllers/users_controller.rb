@@ -33,10 +33,32 @@ class UsersController < ApplicationController
   def destroy
   end
 
+  def edit_icon
+    @user = User.find(params[:id])
+  end
+
+  def update_icon
+    @user = User.find(params[:id])
+    @user.assign_attributes(icon_params)
+    if @user.save
+      flash[:notice] = "アイコンを変更しました。"
+      redirect_to :users
+    else
+      flash.now[:alert] = "アイコンの変更に失敗しました。"
+      render action: 'edit_icon'
+    end
+  end
+
   private
   def user_params
     params.require(:user).permit(
       :nickname, :password, :password_confirmation
+    )
+  end
+
+  def icon_params
+    params.require(:user).permit(
+      :icon_number
     )
   end
 end
