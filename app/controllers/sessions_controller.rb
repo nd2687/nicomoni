@@ -1,6 +1,4 @@
 class SessionsController < ApplicationController
-  layout 'sessions'
-
   def new
     if current_user
       redirect_to :users

@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-  layout 'users'
-
   def index
     unless current_user
       redirect_to :new_user

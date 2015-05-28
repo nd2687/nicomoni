@@ -1,8 +1,6 @@
 class RoomsController < ApplicationController
   before_action :authorize_user, except: :index
 
-  layout 'rooms'
-
   def index
     @rooms = Room.published
     if current_user && current_user.active_room?

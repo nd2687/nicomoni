@@ -1,6 +1,4 @@
 class BroadcastsController < ApplicationController
-  layout 'broadcasts'
-
   def show
     @broadcast = Broadcast.new
   end
