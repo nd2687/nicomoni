@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :check_login, only: [ :new, :create ]
+
   def index
     unless current_user
       redirect_to :new_user
@@ -58,5 +60,12 @@ class UsersController < ApplicationController
     params.require(:user).permit(
       :icon_number
     )
+  end
+
+  def check_login
+    if current_user
+      flash[:alert] = "ログインしています。"
+      redirect_to :users
+    end
   end
 end

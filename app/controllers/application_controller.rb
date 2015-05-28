@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_action :set_layout
+  layout :set_layout
 
   private
   def current_user
@@ -16,9 +16,11 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def set_layout
-    case controller_name
-    when "home"
+    case "#{controller_name}##{action_name}"
+    when /^home#/
       'home'
+    when 'rooms#show', /^broadcasts#/
+      'broadcasts'
     else
       'application'
     end

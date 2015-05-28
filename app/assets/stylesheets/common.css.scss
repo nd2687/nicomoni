@@ -7,7 +7,6 @@
   text-align: center;
   color: #fff;
   background-color: #d13c38;
-  border-radius: 2px;
   margin-bottom: 1em;
   font-size: small;
 }
@@ -16,7 +15,11 @@
   text-align: center;
   color: rgb(102, 131, 145);
   background-color: rgb(209, 235, 238);
-  border-radius: 2px;
   margin-bottom: 1em;
   font-size: small;
+}
+
+.blockWall {
+  margin-left: 20px;
+  margin-top: 20px;
 }

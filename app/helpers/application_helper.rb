@@ -13,8 +13,4 @@ module ApplicationHelper
     end
     return arr
   end
-
-  def controller_name
-    params[:controller]
-  end
 end
