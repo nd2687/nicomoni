@@ -32,10 +32,6 @@ class User < ActiveRecord::Base
   end
 
   def owner?(room)
-    if room.owner == self
-      true
-    else
-      false
-    end
+    room.owner == self ? true : false
   end
 end

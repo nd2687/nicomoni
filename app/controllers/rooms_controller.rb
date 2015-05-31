@@ -1,10 +1,11 @@
 class RoomsController < ApplicationController
   before_action :authorize_user, except: :index
+  before_action :check_room_owner, only: :broadcast_create
 
   def index
     @rooms = Room.published
     if current_user && current_user.active_room?
-      @rooms = @rooms.where.not( id: current_user.active_room.id)
+      @rooms = @rooms.where.not(id: current_user.active_room.id)
     end
   end
 
@@ -17,11 +18,15 @@ class RoomsController < ApplicationController
       flash[:alert] = "満員です。"
       redirect_to :rooms
     else
-      @broadcast = Broadcast.new
+      @broadcast = Broadcast.new unless listener?
       if current_user && !@room.users.include?(current_user)
         flash[:notice] = "入室しました。"
         @room.room_users.create(user: current_user)
       end
+    end
+    if @room.broadcasts.where(live: true).count > 0
+      @live = true
+      broadcast_create
     end
   end
 
@@ -66,6 +71,20 @@ class RoomsController < ApplicationController
     redirect_to :rooms
   end
 
+  def broadcast_create
+    if @live
+      @urls = @room.broadcasts.where(live: true).map(&:player_url)
+    else
+      @room = current_user.rooms.find_by(url_token: params[:broadcast][:url_token])
+      @broadcast = @room.broadcasts.new(broadcast_params)
+      if @broadcast.save
+        render json: [ @broadcast ]
+      else
+        render json: [ false ]
+      end
+    end
+  end
+
   private
   def room_params
     params.require(:room).permit(
@@ -79,4 +98,21 @@ class RoomsController < ApplicationController
       redirect_to :rooms
     end
   end
+
+  def broadcast_params
+    params.require(:broadcast).permit(:url)
+  end
+
+  def check_room_owner
+    @room = Room.find_by(url_token: params[:broadcast][:url_token])
+    unless current_user.owner?(@room)
+      flash[:alert] = "Roomのオーナーではありません。"
+      redirect_to :rooms
+    end
+  end
+
+  def listener?
+    current_user.owner?(@room) ? false : true
+  end
+  helper_method :listener?
 end

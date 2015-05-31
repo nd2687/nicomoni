@@ -14,11 +14,13 @@
 ActiveRecord::Schema.define(version: 20150525150217) do
 
   create_table "broadcasts", force: :cascade do |t|
-    t.string   "url",        limit: 255, null: false
-    t.string   "platform",   limit: 255, null: false
-    t.string   "player_url", limit: 255, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "url",        limit: 255,                 null: false
+    t.string   "platform",   limit: 255,                 null: false
+    t.string   "player_url", limit: 255,                 null: false
+    t.boolean  "live",       limit: 1,   default: false, null: false
+    t.integer  "room_id",    limit: 4
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
   end
 
   create_table "comments", force: :cascade do |t|

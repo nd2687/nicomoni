@@ -3,6 +3,7 @@ class Room < ActiveRecord::Base
   has_many :users, :through => :room_users
   has_many :comments
   belongs_to :owner, :class_name => "User"
+  has_many :broadcasts
 
   validates :name, presence: true
   validates :number, presence: true,

@@ -1,10 +1,13 @@
 class Broadcast < ActiveRecord::Base
+  belongs_to :room
+
   before_validation do
     platform_check
   end
 
   before_create do
     nicoliveplayer if platform == "niconico"
+    self.live = true if room.present?
   end
 
   private

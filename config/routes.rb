@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resource :broadcasts
   resources :rooms, param: :url_token do
     delete :exit_room, on: :member
+    post :broadcast_create, on: :member
     resources :comments
   end
   resources :users do

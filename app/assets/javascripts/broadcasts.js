@@ -3,6 +3,7 @@ $(document).on("ready page:load", function() {
       count = 0;
 
   form.bind("ajax:success", function(e, data, status, xhr) {
+    if(data[0] === "<"){ return false; }
     var player_url  = data[0].player_url,
         src         = player_url + "&#38;amp;languagecode=ja&#45;jp",
         iframeblock = $('<iframe src="' + src + '" frameborder="0" height="488px" width="960px">'),
@@ -18,5 +19,5 @@ $(document).on("ready page:load", function() {
 
   form.bind("ajax:error", function(e, data, status, xhr) {
     alert("error");
-  })
+  });
 });
