@@ -73,7 +73,7 @@ class RoomsController < ApplicationController
 
   def broadcast_create
     if @live
-      @urls = @room.broadcasts.where(live: true).map(&:player_url)
+      @broadcasts = @room.broadcasts.where(live: true)
     else
       @room = current_user.rooms.find_by(url_token: params[:broadcast][:url_token])
       @broadcast = @room.broadcasts.new(broadcast_params)
@@ -83,6 +83,12 @@ class RoomsController < ApplicationController
         render json: [ false ]
       end
     end
+  end
+
+  def change_aspect
+    aspect_ratio = params[:aspect_ratio].split("x")
+    width, height = aspect_ratio[0], aspect_ratio[1]
+    render json: [ width, height ]
   end
 
   private

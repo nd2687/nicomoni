@@ -1,21 +1,15 @@
 <div class="broadcastsField box">
 <% if listener? || @live %>
-  <% @urls.each do |url| %>
-    <iframe width="960px" height="488px" frameborder='0' src="<%= url %>">
-      <embed type="application/x&#45;shockwave&#45;flash" src="<%= url %>" name="plugin" height="100%" width="100%"></embed>
+  <% @broadcasts.each do |broadcast| %>
+    <iframe width="<%= broadcast.width %>px" height="<%= broadcast.height %>px" frameborder='0' src="<%= broadcast.player_url %>">
+      <embed type="application/x&#45;shockwave&#45;flash" src="<%= broadcast.player_url %>" name="plugin" height="100%" width="100%"></embed>
     </iframe>
   <% end %>
+  <% if @broadcasts.size == 1 && !listener? %>
+    <%= render 'broadcast_form' %>
+  <% end %>
 <% else %>
-  <div class="prepareblock">
-    <div class="prepareFormField">
-      <%= form_for @broadcast, url: [ :broadcast_create, @room ], method: :post, remote: true, html: { class: "pure-form" } do |f| %>
-        <%= f.text_field :url, class: "pure-input-1",
-          placeholder: "ニコ生URLを入力 例)http://live.nicovideo.jp/watch/lv*******?ref=community" %>
-        <%= f.hidden_field :url_token, value: @room.url_token %>
-        <%= f.submit '入力', type: 'submit', class: 'pure-button pure-button-primary' %>
-      <% end %>
-    </div>
-  </div>
+  <%= render 'broadcast_form' %>
 <% end %>
 </div>
 <div class="box">
@@ -29,10 +23,13 @@
     <% else %>
       <%= link_to "退室", exit_room_room_path(url_token: @room.url_token), method: :delete, data: { confirm: "退室しますか？" } %>
     <% end %>
+    <%= form_tag change_aspect_room_path(url_token: @room.url_token), { method: :patch, class: 'pure-form', id: "change_aspect_form", remote: true } do %>
+      <%= select_tag(:aspect_ratio, options_for_select(["960x488", "840x427", "720x366", "600x305", "480x244", "360x183", "240x122"])) %>
+    <% end %>
     <br>
-  <% @room.room_users.each do |room_user| %>
-    <%= image_tag("/images/user_icons/user#{room_user.user.icon_number}.png", size: "30x30") %>
-  <% end %>
+    <% @room.room_users.each do |room_user| %>
+      <%= image_tag("/images/user_icons/user#{room_user.user.icon_number}.png", size: "30x30") %>
+    <% end %>
   </div>
   <div class="commentBox">
   comments<br>

@@ -20,4 +20,10 @@ $(document).on("ready page:load", function() {
   form.bind("ajax:error", function(e, data, status, xhr) {
     alert("error");
   });
+
+  var change_aspect_form = $('#change_aspect_form');
+  $('#aspect_ratio').change(function() { change_aspect_form.submit(); });
+  change_aspect_form.bind("ajax:success", function(e, data, status, xhr) {
+    $('.broadcastsField').find('iframe').attr('width', data[0]).attr('height', data[1]);
+  });
 });

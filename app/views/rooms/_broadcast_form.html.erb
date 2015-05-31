@@ -1,0 +1,10 @@
+<div class="prepareblock">
+  <div class="prepareFormField">
+    <%= form_for @broadcast, url: [ :broadcast_create, @room ], method: :post, remote: true, html: { class: "pure-form" } do |f| %>
+      <%= f.text_field :url, class: "pure-input-1",
+        placeholder: "ニコ生URLを入力 例)http://live.nicovideo.jp/watch/lv*******?ref=community" %>
+      <%= f.hidden_field :url_token, value: @room.url_token %>
+      <%= f.submit '入力', type: 'submit', class: 'pure-button pure-button-primary' %>
+    <% end %>
+  </div>
+</div>
