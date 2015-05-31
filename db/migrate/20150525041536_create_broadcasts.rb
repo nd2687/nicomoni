@@ -9,5 +9,7 @@ class CreateBroadcasts < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
+    add_index :broadcasts, :room_id
   end
 end

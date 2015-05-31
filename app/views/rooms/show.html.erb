@@ -1,12 +1,14 @@
 <div class="broadcastsField box">
 <% if listener? || @live %>
-  <% @broadcasts.each do |broadcast| %>
-    <iframe width="<%= broadcast.width %>px" height="<%= broadcast.height %>px" frameborder='0' src="<%= broadcast.player_url %>" id="<%= broadcast.id %>">
-      <embed type="application/x&#45;shockwave&#45;flash" src="<%= broadcast.player_url %>" name="plugin" height="100%" width="100%"></embed>
-    </iframe>
-  <% end %>
-  <% if @broadcasts.size == 1 && !listener? %>
-    <%= render 'broadcast_form' %>
+  <% if @broadcasts.present? %>
+    <% @broadcasts.each do |broadcast| %>
+      <iframe width="<%= broadcast.width %>px" height="<%= broadcast.height %>px" frameborder='0' src="<%= broadcast.player_url %>" id="<%= broadcast.id %>">
+        <embed type="application/x&#45;shockwave&#45;flash" src="<%= broadcast.player_url %>" name="plugin" height="100%" width="100%"></embed>
+      </iframe>
+    <% end %>
+    <% if @broadcasts.size < 2 && !listener? %>
+      <%= render 'broadcast_form' %>
+    <% end %>
   <% end %>
 <% else %>
   <%= render 'broadcast_form' %>
@@ -34,8 +36,10 @@
       <%= select_tag(:aspect_ratio, options_for_select(["960x488", "840x427", "720x366", "600x305", "480x244", "360x183", "240x122"])) %>
     <% end %>
     <br>
-    <% @room.room_users.each do |room_user| %>
-      <%= image_tag("/images/user_icons/user#{room_user.user.icon_number}.png", size: "30x30") %>
+    <% if @room.room_users.present? %>
+      <% @room.room_users.each do |room_user| %>
+        <%= image_tag("/images/user_icons/user#{room_user.user.icon_number}.png", size: "30x30") %>
+      <% end %>
     <% end %>
   </div>
   <div class="commentBox">

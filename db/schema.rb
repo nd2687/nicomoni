@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20150525150217) do
     t.datetime "updated_at",                             null: false
   end
 
+  add_index "broadcasts", ["room_id"], name: "index_broadcasts_on_room_id", using: :btree
+
   create_table "comments", force: :cascade do |t|
     t.integer  "room_id",    limit: 4,   null: false
     t.integer  "user_id",    limit: 4
@@ -38,6 +40,8 @@ ActiveRecord::Schema.define(version: 20150525150217) do
     t.datetime "updated_at",           null: false
   end
 
+  add_index "room_users", ["room_id", "user_id"], name: "index_room_users_on_room_id_and_user_id", unique: true, using: :btree
+
   create_table "rooms", force: :cascade do |t|
     t.string   "name",          limit: 255,                 null: false
     t.string   "url_token",     limit: 255,                 null: false
@@ -51,6 +55,8 @@ ActiveRecord::Schema.define(version: 20150525150217) do
     t.datetime "updated_at",                                null: false
   end
 
+  add_index "rooms", ["owner_id"], name: "index_rooms_on_owner_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "nickname",        limit: 255,             null: false
     t.string   "password_digest", limit: 255,             null: false
@@ -59,5 +65,7 @@ ActiveRecord::Schema.define(version: 20150525150217) do
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
   end
+
+  add_index "users", ["icon_number"], name: "index_users_on_icon_number", using: :btree
 
 end

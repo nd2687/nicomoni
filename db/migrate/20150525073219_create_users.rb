@@ -8,5 +8,7 @@ class CreateUsers < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
+    add_index :users, :icon_number
   end
 end
