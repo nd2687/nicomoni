@@ -78,7 +78,7 @@ class RoomsController < ApplicationController
       @room = current_user.rooms.find_by(url_token: params[:broadcast][:url_token])
       @broadcast = @room.broadcasts.new(broadcast_params)
       if @broadcast.save
-        render json: [ @broadcast ]
+        render json: [ @broadcast, @room, form_authenticity_token ]
       else
         render json: [ false ]
       end
@@ -89,6 +89,16 @@ class RoomsController < ApplicationController
     aspect_ratio = params[:aspect_ratio].split("x")
     width, height = aspect_ratio[0], aspect_ratio[1]
     render json: [ width, height ]
+  end
+
+  def remove_broadcast
+    broadcast = Broadcast.find(params[:id])
+    if broadcast.update(live: false)
+      flash[:notice] = "#{broadcast.id}ちゃんを削除しました。"
+    else
+      flash.now[:alert] = "エラー"
+    end
+    redirect_to :back
   end
 
   private

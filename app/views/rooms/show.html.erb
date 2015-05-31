@@ -1,7 +1,7 @@
 <div class="broadcastsField box">
 <% if listener? || @live %>
   <% @broadcasts.each do |broadcast| %>
-    <iframe width="<%= broadcast.width %>px" height="<%= broadcast.height %>px" frameborder='0' src="<%= broadcast.player_url %>">
+    <iframe width="<%= broadcast.width %>px" height="<%= broadcast.height %>px" frameborder='0' src="<%= broadcast.player_url %>" id="<%= broadcast.id %>">
       <embed type="application/x&#45;shockwave&#45;flash" src="<%= broadcast.player_url %>" name="plugin" height="100%" width="100%"></embed>
     </iframe>
   <% end %>
@@ -19,7 +19,14 @@
     <%= "オーナー #{@room.owner_name}" %>
     <%= image_tag("/images/user_icons/user#{@room.owner.icon_number}.png", size: "35x35") %>
     <% if current_user.owner?(@room) %>
-      <%= link_to 'このRoomを削除する', @room, method: :delete, data: { confirm: "この処理は元に戻せません。\n本当に削除しますか？" } %>
+      <div class="ownerBlock">
+        <%= link_to 'このRoomを削除する', @room, method: :delete, data: { confirm: "この処理は元に戻せません。\n本当に削除しますか？" } %>
+        <% if @live %>
+          <% @broadcasts.each do |broadcast| %>
+            <%= button_to "#{broadcast.id}ちゃんを消す", remove_broadcast_room_path(url_token: @room.url_token), { method: :patch, params: { id: "#{broadcast.id}" } } %>
+          <% end %>
+        <% end %>
+      </div>
     <% else %>
       <%= link_to "退室", exit_room_room_path(url_token: @room.url_token), method: :delete, data: { confirm: "退室しますか？" } %>
     <% end %>

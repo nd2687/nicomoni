@@ -6,7 +6,7 @@ $(document).on("ready page:load", function() {
     if(data[0] === "<"){ return false; }
     var player_url  = data[0].player_url,
         src         = player_url + "&#38;amp;languagecode=ja&#45;jp",
-        iframeblock = $('<iframe src="' + src + '" frameborder="0" height="488px" width="960px">'),
+        iframeblock = $('<iframe src="' + src + '" frameborder="0" height="488px" width="960px" id="'+data[0].id+'">'),
         embedblock  = $('<embed type="application/x&#45;shockwave&#45;flash" src="' + src + '" name="plugin" height="100%" width="100%">');
     if(count === 0){
       $('.broadcastsField').prepend(iframeblock.append(embedblock));
@@ -15,6 +15,13 @@ $(document).on("ready page:load", function() {
     }
     count += 1;
     if(count === 2){ form.parents('.prepareblock').remove(); }
+
+    var removeButton = $('<form class="button_to" action="/rooms/'+data[1].url_token+'/remove_broadcast" method="post">'),
+        hiddenBlock  = $('<input type="hidden" value="patch" name="_method">'),
+        hiddenBlock2 = $('<input type="hidden" value="'+data[0].id+'" name="id">'),
+        hiddenBlock3 = $('<input type="hidden" value="'+data[2]+'" name="authenticity_token">'),
+        buttonBlock  = $('<input type="submit" value="'+data[0].id+'ちゃんを消す">');
+    $('.ownerBlock').append(removeButton.append(hiddenBlock).append(buttonBlock).append(hiddenBlock2).append(hiddenBlock3));
   });
 
   form.bind("ajax:error", function(e, data, status, xhr) {
@@ -25,5 +32,9 @@ $(document).on("ready page:load", function() {
   $('#aspect_ratio').change(function() { change_aspect_form.submit(); });
   change_aspect_form.bind("ajax:success", function(e, data, status, xhr) {
     $('.broadcastsField').find('iframe').attr('width', data[0]).attr('height', data[1]);
+  });
+
+  change_aspect_form.bind("ajax:error", function(e, data, status, xhr) {
+    alert('error');
   });
 });

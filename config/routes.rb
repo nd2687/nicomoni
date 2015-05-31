@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       delete :exit_room
       post :broadcast_create
       patch :change_aspect
+      patch :remove_broadcast
     end
     resources :comments
   end
