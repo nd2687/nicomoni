@@ -16,8 +16,12 @@
               <%= link_to "User", :users, class: "pure-menu-link" %>
             </li>
 
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Help</a></li>
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Board</a></li>
+            <li class="pure-menu-item">
+              <%= link_to "Help", :help, class: 'pure-menu-link' %>
+            </li>
+            <li class="pure-menu-item">
+              <%= link_to "BBS", :boards, class: 'pure-menu-link' %>
+            </li>
             <li class="pure-menu-item"><a href="#" class="pure-menu-link">Ranking</a></li>
             <li class="pure-menu-item">
             <% if current_user %>

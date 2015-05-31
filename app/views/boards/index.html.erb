@@ -1,0 +1,7 @@
+<h2>BBS</h2>
+<%= link_to "板作成", :new_board, class: 'pure-button' %>
+<ul>
+  <% @boards.each do |board| %>
+    <li><%= link_to board.title, [ board, :responses ] %></li>
+  <% end %>
+</ul>

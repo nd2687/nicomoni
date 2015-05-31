@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150525150217) do
+ActiveRecord::Schema.define(version: 20150531161528) do
+
+  create_table "boards", force: :cascade do |t|
+    t.string   "title",      limit: 255, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "broadcasts", force: :cascade do |t|
     t.string   "url",        limit: 255,                 null: false
@@ -32,6 +38,16 @@ ActiveRecord::Schema.define(version: 20150525150217) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  create_table "responses", force: :cascade do |t|
+    t.integer  "board_id",   limit: 4,   null: false
+    t.string   "name",       limit: 255, null: false
+    t.string   "comment",    limit: 255, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "responses", ["board_id"], name: "index_responses_on_board_id", using: :btree
 
   create_table "room_users", force: :cascade do |t|
     t.integer  "room_id",    limit: 4, null: false

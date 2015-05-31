@@ -16,4 +16,8 @@ Rails.application.routes.draw do
     get :edit_icon, on: :member
     patch :update_icon, on: :member
   end
+  resource :help
+  resources :boards do
+    resources :responses
+  end
 end

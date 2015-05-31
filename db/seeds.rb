@@ -1,4 +1,4 @@
-table_names = %w(users rooms)
+table_names = %w(users rooms boards)
 table_names.each do |table_name|
   path = "#{Rails.root}/db/seeds/#{Rails.env}/#{table_name}.rb"
   if File.exist?(path)

@@ -1,0 +1,11 @@
+<h3><%= @board.title %></h3>
+<ul>
+  <% @responses.each do |res| %>
+    <li>
+      <%= res.name %>
+      <%= res.comment %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "レスを追加", [ :new, @board, :response ], class: "pure-button" %>
