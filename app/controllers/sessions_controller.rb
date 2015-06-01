@@ -13,6 +13,7 @@ class SessionsController < ApplicationController
         cookies.delete(:current_user_id)
         session[:current_user_id] = user.id
       end
+      user.update_attribute(:lastlogin, Time.now)
       flash.notice = "ログインしました。"
       redirect_to :users
     else

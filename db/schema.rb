@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 20150601062111) do
     t.string   "password_digest", limit: 255,             null: false
     t.string   "room_url_token",  limit: 255
     t.integer  "icon_number",     limit: 4,   default: 1, null: false
+    t.datetime "lastlogin"
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
   end

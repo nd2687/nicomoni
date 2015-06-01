@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     @user.setting_password = true
     if @user.save
       session[:current_user_id] = @user.id
+      @user.update_attribute(:lastlogin, Time.now)
       flash.notice = "ユーザー作成しました。"
       redirect_to :users
     else
