@@ -24,6 +24,14 @@ class RoomsController < ApplicationController
         @room.room_users.create(user: current_user)
       end
     end
+    @presenter = {
+      :comments => @room.comments.last(100).reverse,
+      :form => {
+        :action => room_comments_path(room_url_token: @room.url_token),
+        :csrf_param => request_forgery_protection_token,
+        :csrf_token => form_authenticity_token
+      }
+    }
     if @room.broadcasts.where(live: true).count > 0
       @live = true
       broadcast_create

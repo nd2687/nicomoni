@@ -4,10 +4,14 @@
   vertical-align:top
 }
 
-.commentBox {
+.comment-field {
   overflow: scroll;
   width: 400px;
   height: 700px;
+}
+
+.CommentFormTextArea {
+  width: 400px;
 }
 
 .prepareFormField {

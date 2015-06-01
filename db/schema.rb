@@ -32,11 +32,13 @@ ActiveRecord::Schema.define(version: 20150601062111) do
   add_index "broadcasts", ["room_id"], name: "index_broadcasts_on_room_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
-    t.integer  "room_id",    limit: 4,   null: false
-    t.integer  "user_id",    limit: 4
-    t.string   "body",       limit: 255, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "room_id",     limit: 4,               null: false
+    t.integer  "user_id",     limit: 4,               null: false
+    t.integer  "icon_number", limit: 4,   default: 1, null: false
+    t.string   "author",      limit: 255,             null: false
+    t.string   "body",        limit: 255,             null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   create_table "friendships", force: :cascade do |t|

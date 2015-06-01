@@ -43,5 +43,6 @@
     <% end %>
   </div>
   <div id="CommentField">
+    <%= react_component('CommentBox', {:presenter => @presenter.to_json}, {:presenter => true}) %>
   </div>
 </div>

@@ -3,7 +3,7 @@
 <%= link_to "アイコンを変更", [ :edit_icon, current_user ], type: 'button', class: 'pure-button' %>
 <br>
 <small>
-最終ログイン日時: <%= current_user.lastlogin.strftime('%Y/%m/%d %H:%M:%S') %>
+最終ログイン日時: <%= current_user.lastlogin.strftime('%Y/%m/%d %H:%M:%S') if current_user.lastlogin? %>
 </small>
 
 <h4>フレンド(<%= @friends.size %>)</h4>
