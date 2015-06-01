@@ -2,7 +2,7 @@
 <% if listener? || @live %>
   <% if @broadcasts.present? %>
     <% @broadcasts.each do |broadcast| %>
-      <iframe width="<%= broadcast.width %>px" height="<%= broadcast.height %>px" frameborder='0' src="<%= broadcast.player_url %>" id="<%= broadcast.id %>">
+      <iframe width="960px" height="488px" frameborder='0' src="<%= broadcast.player_url %>" id="<%= broadcast.id %>">
         <embed type="application/x&#45;shockwave&#45;flash" src="<%= broadcast.player_url %>" name="plugin" height="100%" width="100%"></embed>
       </iframe>
     <% end %>
@@ -33,7 +33,7 @@
       <%= link_to "退室", exit_room_room_path(url_token: @room.url_token), method: :delete, data: { confirm: "退室しますか？" } %>
     <% end %>
     <%= form_tag change_aspect_room_path(url_token: @room.url_token), { method: :patch, class: 'pure-form', id: "change_aspect_form", remote: true } do %>
-      <%= select_tag(:aspect_ratio, options_for_select(["960x488", "840x427", "720x366", "600x305", "480x244", "360x183", "240x122"])) %>
+      <%= select_tag(:aspect_ratio, options_for_select(["960x488", "840x427", "720x366", "600x305", "480x244", "450x229", "432x220", "360x183", "240x122"])) %>
     <% end %>
     <br>
     <% if @room.room_users.present? %>

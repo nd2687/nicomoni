@@ -60,7 +60,7 @@ class ResponsesController < ApplicationController
   def authorize_user
     unless current_user
       flash[:alert] = "ユーザーログインが必要です。登録していない方は登録してください。"
-      redirect_to :rooms
+      redirect_to :boards
     end
   end
 end
