@@ -2,7 +2,9 @@ class UsersController < ApplicationController
   before_action :check_login, only: [ :new, :create ]
 
   def index
-    unless current_user
+    if current_user
+      @friends = current_user.friends
+    else
       redirect_to :new_user
     end
   end

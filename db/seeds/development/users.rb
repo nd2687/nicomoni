@@ -8,3 +8,7 @@ nicknames.each do |nickname|
   user.icon_number = rand(icons_length.to_i)
   user.save!
 end
+
+User.pluck(:id).each_cons(2) do |a, b|
+  Friendship.create(user_id: a, friend_id: b)
+end

@@ -1,3 +1,9 @@
 <h2><%= "#{current_user.nickname}さんようこそ" %></h2>
 <%= image_tag("/images/user_icons/user#{current_user.icon_number}.png") %>
-<%= link_to "アイコンを変更", [ :edit_icon, current_user ] %>
+<%= link_to "アイコンを変更", [ :edit_icon, current_user ], type: 'button', class: 'pure-button' %>
+
+<h4>フレンド(<%= @friends.size %>)</h4>
+
+<% @friends.each do |friend| %>
+  <%= friend.nickname %>
+<% end %>

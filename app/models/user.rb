@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :room_users
   has_many :rooms, :through => :room_users
+  has_many :friendships
+  has_many :friends, :through => :friendships
 
   attr_accessor :password, :password_confirmation, :setting_password
   alias_method :setting_password?, :setting_password
