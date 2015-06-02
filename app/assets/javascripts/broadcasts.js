@@ -16,12 +16,21 @@ $(document).on("ready page:load", function() {
     count += 1;
     if(count === 2){ form.parents('.prepareblock').remove(); }
 
+    var id = data[0].id;
     var removeButton = $('<form class="button_to" action="/rooms/'+data[1].url_token+'/remove_broadcast" method="post">'),
         hiddenBlock  = $('<input type="hidden" value="patch" name="_method">'),
-        hiddenBlock2 = $('<input type="hidden" value="'+data[0].id+'" name="id">'),
+        hiddenBlock2 = $('<input type="hidden" value="'+id+'" name="id">'),
         hiddenBlock3 = $('<input type="hidden" value="'+data[2]+'" name="authenticity_token">'),
-        buttonBlock  = $('<input type="submit" value="'+data[0].id+'ちゃんを消す">');
+        buttonBlock  = $('<input type="submit" id="'+id+'" value="'+id+'ちゃんを消す">');
     $('.ownerBlock').append(removeButton.append(hiddenBlock).append(buttonBlock).append(hiddenBlock2).append(hiddenBlock3));
+  });
+
+  $('.RemoveButton').mouseover(function() {
+    var id = $(this).attr('id');
+    $('.broadcastsField').find('#'+id).wrap('<div class="ButtonFilter">');
+  }).mouseout(function() {
+    var id = $(this).attr('id');
+    $('.broadcastsField').find('#'+id).unwrap();
   });
 
   form.bind("ajax:error", function(e, data, status, xhr) {

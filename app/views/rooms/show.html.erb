@@ -15,7 +15,7 @@
 <% end %>
 </div>
 <div class="box">
-  <div style="height:300px;width:400px;border: solid 1px;">
+  <div style="height:300px;width:400px;">
     <%= "Room名 #{@room.name}" %>
     <%= "制限人数 #{@room.active_number}/#{@room.number}人" %>
     <%= "オーナー #{@room.owner_name}" %>
@@ -25,7 +25,7 @@
         <%= link_to 'このRoomを削除する', @room, method: :delete, data: { confirm: "この処理は元に戻せません。\n本当に削除しますか？" } %>
         <% if @live %>
           <% @broadcasts.each do |broadcast| %>
-            <%= button_to "#{broadcast.id}ちゃんを消す", remove_broadcast_room_path(url_token: @room.url_token), { method: :patch, params: { id: "#{broadcast.id}" } } %>
+            <%= button_to "#{broadcast.id}ちゃんを消す", remove_broadcast_room_path(url_token: @room.url_token), { class: 'RemoveButton', id: "#{broadcast.id}", method: :patch, params: { id: "#{broadcast.id}" } } %>
           <% end %>
         <% end %>
       </div>
