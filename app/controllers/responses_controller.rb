@@ -3,48 +3,43 @@ class ResponsesController < ApplicationController
 
   def index
     @responses = @board.responses
-  end
-
-  def new
     @response = @board.responses.new
   end
 
-  def edit
-    @response = @board.responses.find(params[:id])
-  end
+  # def edit
+  #   @response = @board.responses.find(params[:id])
+  # end
 
   def create
     @response = @board.responses.new(response_params)
     @response.name = current_user.nickname
     if @response.save
-      flash[:notice] = "レスを作成しました。"
-      redirect_to [ @board, :responses ]
+      render json: @response
     else
-      flash.now[:alert] = "レスの作成に失敗しました。"
-      render action: 'new'
+      render json: false
     end
   end
 
-  def update
-    @response = @board.responses.find(params[:id])
-    if @response.update_attributes(response_params)
-      flash[:notice] = "レスを更新しました。"
-      redirect_to [ @board, :responses ]
-    else
-      flash.now[:alert] = "レスの更新に失敗しました。"
-      render action: 'edit'
-    end
-  end
-
-  def destroy
-    @response = @board.responses.find(params[:id])
-    if @response.destroy
-      flash[:notice] = "レスを削除しました。"
-    else
-      flash[:alert] = "レスの削除に失敗しました。"
-    end
-    redirect_to [ @board, :responses ]
-  end
+  # def update
+  #   @response = @board.responses.find(params[:id])
+  #   if @response.update_attributes(response_params)
+  #     flash[:notice] = "レスを更新しました。"
+  #     redirect_to [ @board, :responses ]
+  #   else
+  #     flash.now[:alert] = "レスの更新に失敗しました。"
+  #     render action: 'edit'
+  #   end
+  # end
+  #
+  # def destroy
+  #   @response = @board.responses.find(params[:id])
+  #   if @response.destroy
+  #     flash[:notice] = "レスを削除しました。"
+  #   else
+  #     flash[:alert] = "レスの削除に失敗しました。"
+  #   end
+  #   redirect_to [ @board, :responses ]
+  # end
 
   private
   def set_board

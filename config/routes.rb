@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   end
   resource :help
   resources :boards do
-    resources :responses
+    resources :responses, only: [ :index, :create ]
   end
   get 'news' => 'news#index'
 end

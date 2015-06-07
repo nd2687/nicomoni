@@ -1,6 +1,0 @@
-<%= form_for [ @board, @response ], html: { class: 'pure-form pure-form-stacked', role: 'form' } do |f| %>
-  <%= f.label :comment, "コメント" %>
-  <%= f.text_area :comment, placeholder: "コメント", required: true  %>
-  <br>
-  <%= f.submit "作成", type: 'submit', class: 'pure-button pure-button-primary' %>
-<% end %>

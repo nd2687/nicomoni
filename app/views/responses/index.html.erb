@@ -1,11 +1,18 @@
 <h3><%= @board.title %></h3>
-<ul>
+<ul class="ResponseList">
   <% @responses.each do |res| %>
-    <li>
-      <%= res.name %>
-      <%= res.comment %>
-    </li>
+    <% if res.persisted? %>
+      <li>
+        <%= res.name %>
+        <%= res.comment %>
+      </li>
+    <% end %>
   <% end %>
 </ul>
 
-<%= link_to "レスを追加", [ :new, @board, :response ], class: "pure-button" %>
+<%= form_for [ @board, @response ], html: { class: 'pure-form pure-form-stacked', role: 'form' }, remote: true do |f| %>
+  <%= f.label :comment, "レスを書く" %>
+  <%= f.text_area :comment, placeholder: "コメント", required: true  %>
+  <br>
+  <%= f.submit "作成", type: 'submit', class: 'pure-button pure-button-primary' %>
+<% end %>
