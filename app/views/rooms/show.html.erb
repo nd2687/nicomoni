@@ -38,7 +38,7 @@
     <br>
     <% if @room.room_users.present? %>
       <% @room.room_users.each do |room_user| %>
-        <%= link_to image_tag("/images/user_icons/user#{room_user.user.icon_number}.png", size: "30x30"), user_path(id: room_user.user.id) %>
+        <%= link_to image_tag("/images/user_icons/user#{room_user.user.icon_number}.png", size: "30x30"), user_path(id: room_user.user.id), class: "UserLinkImage" %>
       <% end %>
     <% end %>
   </div>

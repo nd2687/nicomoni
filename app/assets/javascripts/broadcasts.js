@@ -46,4 +46,10 @@ $(document).on("ready page:load", function() {
   change_aspect_form.bind("ajax:error", function(e, data, status, xhr) {
     alert('error');
   });
+
+  $('.UserLinkImage').on('click', function() {
+    window.open(this.href, 300, 200);
+    return false;
+  });
 });
+

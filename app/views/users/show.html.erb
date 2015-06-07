@@ -2,11 +2,13 @@
 <%= @user.nickname %>
 </p>
 <%= image_tag("/images/user_icons/user#{@user.icon_number}.png") %>
+<p>
 <% if current_user.friend?(@user) %>
-  <%= link_to "フォロー解除", [ @user, @friendship ], method: :delete %>
+  <%= link_to "フォロー解除", [ @user, @friendship ], method: :delete, type: 'button', class: 'pure-button' %>
 <% else %>
-  <%= link_to "フォローする", [ @user, :friendships ], method: :post %>
+  <%= link_to "フォローする", [ @user, :friendships ], method: :post, type: 'button', class: 'pure-button pure-button-primary' %>
 <% end %>
+</p>
 
 <table class="pure-table">
   <thead>
