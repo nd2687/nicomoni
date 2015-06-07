@@ -1,0 +1,22 @@
+<p>
+<%= @user.nickname %>
+</p>
+<%= image_tag("/images/user_icons/user#{@user.icon_number}.png") %>
+<% if current_user.friend?(@user) %>
+  <%= link_to "フォロー解除", [ @user, @friendship ], method: :delete %>
+<% else %>
+  <%= link_to "フォローする", [ @user, :friendships ], method: :post %>
+<% end %>
+
+<table class="pure-table">
+  <thead>
+    <tr>
+      <th>フォロー</th>
+      <th>フォロワー</th>
+    </tr>
+  </thead>
+  <tr>
+    <td><%= link_to @friends.size, [ :friends, @user ] %></td>
+    <td><%= link_to @followers.size, [ :followers, @user ] %></td>
+  </tr>
+</table>

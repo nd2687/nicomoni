@@ -2,8 +2,10 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :room_users
   has_many :rooms, :through => :room_users
-  has_many :friendships
+  has_many :friendships, dependent: :destroy
   has_many :friends, :through => :friendships
+  has_many :followerships, class_name: 'Friendship', foreign_key: 'friend_id', dependent: :destroy
+  has_many :followers, :through => :followerships, :source => :user
 
   attr_accessor :password, :password_confirmation, :setting_password
   alias_method :setting_password?, :setting_password
@@ -35,5 +37,21 @@ class User < ActiveRecord::Base
 
   def owner?(room)
     room.owner == self ? true : false
+  end
+
+  def friend?(user)
+    if friends.include?(user)
+      true
+    else
+      false
+    end
+  end
+
+  def follower?(user)
+    if followers.include?(user)
+      true
+    else
+      false
+    end
   end
 end

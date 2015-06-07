@@ -13,8 +13,13 @@ Rails.application.routes.draw do
     resources :comments
   end
   resources :users do
-    get :edit_icon, on: :member
-    patch :update_icon, on: :member
+    member do
+      get :edit_icon
+      patch :update_icon
+      get :friends
+      get :followers
+    end
+    resources :friendships, only: [ :create, :destroy ]
   end
   resource :help
   resources :boards do

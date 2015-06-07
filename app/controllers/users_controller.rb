@@ -4,8 +4,19 @@ class UsersController < ApplicationController
   def index
     if current_user
       @friends = current_user.friends
+      @followers = current_user.followers
     else
       redirect_to :new_user
+    end
+  end
+
+  def show
+    @user = User.find(params[:id])
+    @friends = @user.friends
+    @followers = @user.followers
+    @friendship = Friendship.find_by(user: current_user, friend: @user)
+    if current_user == @user
+      redirect_to :users
     end
   end
 
@@ -50,6 +61,16 @@ class UsersController < ApplicationController
       flash.now[:alert] = "アイコンの変更に失敗しました。"
       render action: 'edit_icon'
     end
+  end
+
+  def friends
+    @user = User.find(params[:id])
+    @friends = @user.friends
+  end
+
+  def followers
+    @user = User.find(params[:id])
+    @followers = @user.followers
   end
 
   private

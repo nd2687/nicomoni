@@ -6,8 +6,15 @@
 最終ログイン日時: <%= current_user.lastlogin.strftime('%Y/%m/%d %H:%M:%S') if current_user.lastlogin? %>
 </small>
 
-<h4>フレンド(<%= @friends.size %>)</h4>
-
-<% @friends.each do |friend| %>
-  <%= friend.nickname %>
-<% end %>
+<table class="pure-table">
+  <thead>
+    <tr>
+      <th>フォロー</th>
+      <th>フォロワー</th>
+    </tr>
+  </thead>
+  <tr>
+    <td><%= link_to @friends.size, [ :friends, current_user ] %></td>
+    <td><%= link_to @followers.size, [ :followers, current_user ] %></td>
+  </tr>
+</table>

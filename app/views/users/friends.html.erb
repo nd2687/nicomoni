@@ -1,0 +1,9 @@
+<h3><%= @user.nickname %>さんのフォロー一覧</h3>
+<ul>
+  <% @friends.each do |friend| %>
+    <li>
+      <%= "フォローされています" if current_user.follower?(friend) %>
+      <%= link_to friend.nickname, friend %>
+    </li>
+  <% end %>
+</ul>
