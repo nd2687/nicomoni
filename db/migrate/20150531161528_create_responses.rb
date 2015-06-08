@@ -9,5 +9,6 @@ class CreateResponses < ActiveRecord::Migration
     end
 
     add_index :responses, :board_id
+    add_foreign_key :responses, :boards
   end
 end

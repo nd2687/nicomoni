@@ -1,8 +1,7 @@
 FactoryGirl.define do
-  sequence(:name) { |n| "room-name-#{n}" }
 
   factory :room do
-    name
+    sequence(:name) { |n| "room-name-#{n}" }
     number 5
     owner { FactoryGirl.create :user }
 

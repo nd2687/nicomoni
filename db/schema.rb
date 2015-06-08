@@ -41,6 +41,9 @@ ActiveRecord::Schema.define(version: 20150601062111) do
     t.datetime "updated_at",                          null: false
   end
 
+  add_index "comments", ["room_id"], name: "fk_rails_9173c93ba1", using: :btree
+  add_index "comments", ["user_id"], name: "fk_rails_03de2dc08c", using: :btree
+
   create_table "friendships", force: :cascade do |t|
     t.integer  "user_id",    limit: 4, null: false
     t.integer  "friend_id",  limit: 4, null: false
@@ -48,6 +51,7 @@ ActiveRecord::Schema.define(version: 20150601062111) do
     t.datetime "updated_at",           null: false
   end
 
+  add_index "friendships", ["friend_id"], name: "fk_rails_d78dc9c7fd", using: :btree
   add_index "friendships", ["user_id", "friend_id"], name: "index_friendships_on_user_id_and_friend_id", unique: true, using: :btree
 
   create_table "responses", force: :cascade do |t|
@@ -68,6 +72,7 @@ ActiveRecord::Schema.define(version: 20150601062111) do
   end
 
   add_index "room_users", ["room_id", "user_id"], name: "index_room_users_on_room_id_and_user_id", unique: true, using: :btree
+  add_index "room_users", ["user_id"], name: "fk_rails_f4e2e6f10e", using: :btree
 
   create_table "rooms", force: :cascade do |t|
     t.string   "name",          limit: 255,                 null: false
@@ -96,4 +101,11 @@ ActiveRecord::Schema.define(version: 20150601062111) do
 
   add_index "users", ["icon_number"], name: "index_users_on_icon_number", using: :btree
 
+  add_foreign_key "comments", "rooms"
+  add_foreign_key "comments", "users"
+  add_foreign_key "friendships", "users"
+  add_foreign_key "friendships", "users", column: "friend_id"
+  add_foreign_key "responses", "boards"
+  add_foreign_key "room_users", "rooms"
+  add_foreign_key "room_users", "users"
 end
