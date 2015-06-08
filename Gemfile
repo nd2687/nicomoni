@@ -23,6 +23,10 @@ group :development, :test do
   gem 'pry'
   gem 'pry-rails'
   gem 'pry-byebug'
+  gem 'capistrano', '~> 3.2.1', require: false
+  gem 'capistrano-rails', '~> 1.1', require: false
+  gem 'capistrano-bundler', '~> 1.1', require: false
+  gem 'capistrano3-unicorn', '~> 0.2.1', require: false
 end
 
 group :test do
@@ -30,4 +34,8 @@ group :test do
   gem 'capybara', '~> 2.4.1'
   gem 'factory_girl_rails', '~> 4.4.1'
   gem 'launchy'
+end
+
+group :production do
+  gem 'unicorn', '~> 4.8.3'
 end
