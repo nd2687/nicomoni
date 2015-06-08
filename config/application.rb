@@ -18,5 +18,10 @@ module Nicomoni
       g.helper = false
       g.test_framework :rspec, :fixture => false
     end
+
+    config.react.jsx_transform_options = {
+      harmony: true,
+      strip_types: true
+    }
   end
 end
