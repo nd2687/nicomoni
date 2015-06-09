@@ -43,6 +43,6 @@
     <% end %>
   </div>
   <div id="CommentField">
-    <%= react_component('CommentBox', {:presenter => @presenter.to_json}, {:presenter => true}) %>
+    <%= react_component('CommentBox', {:presenter => @presenter.to_json, :pollInterval => 2000}, {:presenter => true}) %>
   </div>
 </div>

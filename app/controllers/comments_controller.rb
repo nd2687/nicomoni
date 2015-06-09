@@ -11,6 +11,11 @@ class CommentsController < ApplicationController
     end
   end
 
+  def get_comment
+    @room = Room.find_by(url_token: params[:room_url_token])
+    render json: @room.comments.last(100)
+  end
+
   private
   def comment_params
     params.require(:comment).permit(:body)

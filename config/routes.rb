@@ -10,7 +10,9 @@ Rails.application.routes.draw do
       patch :change_aspect
       patch :remove_broadcast
     end
-    resources :comments
+    resources :comments do
+      get :get_comment, on: :collection
+    end
   end
   resources :users do
     member do
