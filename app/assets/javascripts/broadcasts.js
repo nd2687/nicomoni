@@ -51,5 +51,17 @@ $(document).on("ready page:load", function() {
     window.open(this.href, 300, 200);
     return false;
   });
+
+  $('#RightSideButton').on('click', function() {
+    if($('#RightSideButton').hasClass('closed')){
+      $('#RightSideButton').animate({'left': '-=270px'}, 'fast');
+      $('#RightSideButton').removeClass('closed');
+      $('.sidebar').animate({'left': '-=270px'}, 'fast');
+    } else {
+      $('#RightSideButton').animate({'left': '+=270px'}, 'fast');
+      $('#RightSideButton').addClass('closed');
+      $('.sidebar').animate({'left': '+=270px'}, 'fast');
+    }
+  });
 });
 

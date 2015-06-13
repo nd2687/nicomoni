@@ -42,7 +42,8 @@
       <% end %>
     <% end %>
   </div>
-  <div id="CommentField">
+  <div class="sidebar right CommentField">
     <%= react_component('CommentBox', {:presenter => @presenter.to_json, :pollInterval => 2000}, {:presenter => true}) %>
   </div>
 </div>
+<button id="RightSideButton">></button>
