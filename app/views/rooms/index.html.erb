@@ -5,7 +5,7 @@ Roomを作成、入室したい場合は<%= link_to "ユーザー登録", :new_u
 <br>
 <br>
 <% if current_user && current_user.active_room? %>
-  <%= link_to "Roomへ戻る", room_path(url_token: current_user.active_room.url_token), class: 'btn btn-info' %>
+  <%= link_to "Roomへ戻る", room_path(url_token: current_user.active_room.url_token), class: 'pure-button' %>
 <% end %>
 
 <br>

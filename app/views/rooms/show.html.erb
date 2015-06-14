@@ -14,36 +14,41 @@
   <%= render 'broadcast_form' %>
 <% end %>
 </div>
-<div class="box">
-  <div style="height:300px;width:400px;">
-    <%= "Room名 #{@room.name}" %>
+<div class="RoomInfoField" style="height:300px;width:400px;">
+  <b><%= @room.name %></b>
+  <small>
+    :
     <%= "制限人数 #{@room.active_number}/#{@room.number}人" %>
     <%= "オーナー #{@room.owner_name}" %>
-    <%= image_tag("/images/user_icons/user#{@room.owner.icon_number}.png", size: "35x35") %>
-    <% if current_user.owner?(@room) %>
-      <div class="ownerBlock">
-        <%= link_to 'このRoomを削除する', @room, method: :delete, data: { confirm: "この処理は元に戻せません。\n本当に削除しますか？" } %>
-        <% if @live %>
-          <% @broadcasts.each do |broadcast| %>
-            <%= button_to "#{broadcast.id}ちゃんを消す", remove_broadcast_room_path(url_token: @room.url_token), { class: 'RemoveButton', id: "#{broadcast.id}", method: :patch, params: { id: "#{broadcast.id}" } } %>
-          <% end %>
+  </small>
+  <br>
+  <%= image_tag("/images/user_icons/user#{@room.owner.icon_number}.png", size: "35x35") %>
+
+  <% if current_user.owner?(@room) %>
+    <div class="ownerBlock">
+      <%= button_to 'このRoomを削除する', @room, method: :delete, data: { confirm: "この処理は元に戻せません。\n本当に削除しますか？" }, class: 'pure-button InInfoField' %>
+      <% if @live %>
+        <% @broadcasts.each do |broadcast| %>
+          <%= button_to "#{broadcast.id}ちゃんを消す", remove_broadcast_room_path(url_token: @room.url_token), { class: 'RemoveButton InInfoField', id: "#{broadcast.id}", method: :patch, params: { id: "#{broadcast.id}" } } %>
         <% end %>
-      </div>
-    <% else %>
-      <%= link_to "退室", exit_room_room_path(url_token: @room.url_token), method: :delete, data: { confirm: "退室しますか？" } %>
-    <% end %>
-    <%= form_tag change_aspect_room_path(url_token: @room.url_token), { method: :patch, class: 'pure-form', id: "change_aspect_form", remote: true } do %>
-      <%= select_tag(:aspect_ratio, options_for_select(["960x488", "840x427", "720x366", "600x305", "480x244", "450x229", "432x220", "360x183", "240x122"])) %>
-    <% end %>
-    <br>
-    <% if @room.room_users.present? %>
-      <% @room.room_users.each do |room_user| %>
-        <%= link_to image_tag("/images/user_icons/user#{room_user.user.icon_number}.png", size: "30x30"), user_path(id: room_user.user.id), class: "UserLinkImage" %>
       <% end %>
+    </div>
+  <% else %>
+    <%= button_to "退室", exit_room_room_path(url_token: @room.url_token), method: :delete, data: { confirm: "退室しますか？" }, class: 'pure-button InInfoField' %>
+  <% end %>
+
+  <br>
+  <% if @room.room_users.present? %>
+    <% @room.room_users.each do |room_user| %>
+      <%= link_to image_tag("/images/user_icons/user#{room_user.user.icon_number}.png", size: "30x30"), user_path(id: room_user.user.id), class: "InInfoField UserLinkImage" %>
     <% end %>
-  </div>
-  <div class="sidebar right CommentField">
-    <%= react_component('CommentBox', {:presenter => @presenter.to_json, :pollInterval => 2000}, {:presenter => true}) %>
-  </div>
+  <% end %>
+
+  <%= form_tag change_aspect_room_path(url_token: @room.url_token), { method: :patch, class: 'pure-form', id: "change_aspect_form", remote: true } do %>
+    <%= select_tag(:aspect_ratio, options_for_select(["960x488", "840x427", "720x366", "600x305", "480x244", "450x229", "432x220", "360x183", "240x122"]), class: 'InInfoField') %>
+  <% end %>
 </div>
-<button id="RightSideButton">></button>
+
+<div class="sidebar right CommentField">
+  <%= react_component('CommentBox', {:presenter => @presenter.to_json, :pollInterval => 2000}, {:presenter => true}) %>
+</div>

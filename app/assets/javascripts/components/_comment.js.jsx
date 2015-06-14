@@ -5,7 +5,6 @@ var Comment = React.createClass({
     return (
       <div>
         <img src={iconImg} alt="IconImage" width="20" height="20"></img>
-        { this.props.user } said:
         <p dangerouslySetInnerHTML={{__html: rawMarkUp}} />
       </div>
     );

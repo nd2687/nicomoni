@@ -52,16 +52,19 @@ $(document).on("ready page:load", function() {
     return false;
   });
 
-  $('#RightSideButton').on('click', function() {
-    if($('#RightSideButton').hasClass('closed')){
-      $('#RightSideButton').animate({'left': '-=270px'}, 'fast');
-      $('#RightSideButton').removeClass('closed');
-      $('.sidebar').animate({'left': '-=270px'}, 'fast');
-    } else {
-      $('#RightSideButton').animate({'left': '+=270px'}, 'fast');
-      $('#RightSideButton').addClass('closed');
-      $('.sidebar').animate({'left': '+=270px'}, 'fast');
-    }
+  $('#aspect_ratio1').click(function(e){
+    e.stopPropagation();
   });
+
+  $('.RoomInfoField').on('click', function() {
+    if($(this).hasClass('infoClosed')){
+      $(this).removeClass('infoClosed').animate({'left': '-=390px'}, 'fast');
+    } else {
+      $(this).addClass('infoClosed').animate({'left': '+=390px'}, 'fast');
+    }
+    return false;
+  });
+
+  $('.InInfoField').on('click', function(e) { e.stopPropagation(); });
 });
 
