@@ -58,11 +58,10 @@ $(document).on("ready page:load", function() {
 
   $('.RoomInfoField').on('click', function() {
     if($(this).hasClass('infoClosed')){
-      $(this).removeClass('infoClosed').animate({'left': '-=390px'}, 'fast');
+      $(this).removeClass('infoClosed').animate({'opacity': '1'}, 'fast');
     } else {
-      $(this).addClass('infoClosed').animate({'left': '+=390px'}, 'fast');
+      $(this).addClass('infoClosed').animate({'opacity': '0.15'}, 'fast');
     }
-    return false;
   });
 
   $('.InInfoField').on('click', function(e) { e.stopPropagation(); });
