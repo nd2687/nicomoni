@@ -57,11 +57,15 @@ $(document).on("ready page:load", function() {
   });
 
   $('.RoomInfoField').on('click', function() {
-    if($(this).hasClass('infoClosed')){
-      $(this).removeClass('infoClosed').animate({'opacity': '1'}, 'fast');
-    } else {
-      $(this).addClass('infoClosed').animate({'opacity': '0.15'}, 'fast');
-    }
+    $(this).slideUp( function () {
+      $('#RoomInfoTrigger').fadeIn();
+    });
+  });
+
+  $('#RoomInfoTrigger').on('click', function() {
+    $(this).fadeOut('fast', function(){
+      $('.RoomInfoField').slideDown();
+    });
   });
 
   $('.InInfoField').on('click', function(e) { e.stopPropagation(); });

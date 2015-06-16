@@ -12,7 +12,9 @@
 <div id="layout">
     <%= flash_messages %>
     <%= render "shared/side_menu" %>
-    <%= yield %>
+    <div style="margin: 15px 0 0 30px">
+      <%= yield %>
+    </div>
 </div>
 
 </body>
