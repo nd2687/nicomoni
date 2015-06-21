@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: broadcasts
+#
+#  id         :integer          not null, primary key
+#  url        :string(255)      not null
+#  platform   :string(255)      not null
+#  player_url :string(255)      not null
+#  live       :boolean          default(FALSE), not null
+#  room_id    :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Broadcast < ActiveRecord::Base
   belongs_to :room
 

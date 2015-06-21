@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: rooms
+#
+#  id            :integer          not null, primary key
+#  name          :string(255)      not null
+#  url_token     :string(255)      not null
+#  number        :integer          not null
+#  owner_id      :integer          not null
+#  private       :boolean          default(FALSE), not null
+#  deletable     :boolean          default(FALSE), not null
+#  active_number :integer          default(0), not null
+#  full          :boolean          default(FALSE), not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
 class Room < ActiveRecord::Base
   has_many :room_users
   has_many :users, :through => :room_users

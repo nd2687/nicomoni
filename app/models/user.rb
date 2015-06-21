@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  nickname        :string(255)      not null
+#  password_digest :string(255)      not null
+#  room_url_token  :string(255)
+#  icon_number     :integer          default(1), not null
+#  lastlogin       :datetime
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 class User < ActiveRecord::Base
   has_many :comments
   has_many :room_users
