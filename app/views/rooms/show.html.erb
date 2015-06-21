@@ -27,15 +27,22 @@
     <br>
     <%= image_tag("/images/user_icons/user#{@room.owner.icon_number}.png", size: "35x35") %>
 
-    <% if current_user.owner?(@room) %>
-      <div class="ownerBlock">
-        <%= button_to 'このRoomを削除する', @room, method: :delete, data: { confirm: "この処理は元に戻せません。\n本当に削除しますか？" }, class: 'pure-button InInfoField' %>
-        <% if @live %>
-          <% @broadcasts.each do |broadcast| %>
-            <%= button_to "#{broadcast.id}ちゃんを消す", remove_broadcast_room_path(url_token: @room.url_token), { class: 'RemoveButton InInfoField', id: "#{broadcast.id}", method: :patch, params: { id: "#{broadcast.id}" } } %>
-          <% end %>
+    <div class="BroadcastInfoBlock">
+      <% if @live %>
+        <% @broadcasts.each do |broadcast| %>
+          <div class="CommunityThumbnail">
+            <%= image_tag(Broadcast::URL[:community_thumbnail] + broadcast.get_community(@api)) %>
+            <% if current_user.owner?(@room) %>
+              <%= button_to "取り消し", remove_broadcast_room_path(url_token: @room.url_token), { class: 'RemoveButton InInfoField', id: "#{broadcast.id}", method: :patch, params: { id: "#{broadcast.id}" } } %>
+            <% end %>
+            <%= broadcast.get_base_time(@api) %>
+          </div>
         <% end %>
-      </div>
+      <% end %>
+    </div>
+
+    <% if current_user.owner?(@room) %>
+      <%= button_to 'このRoomを削除する', @room, method: :delete, data: { confirm: "この処理は元に戻せません。\n本当に削除しますか？" }, class: 'pure-button InInfoField' %>
     <% else %>
       <%= button_to "退室", exit_room_room_path(url_token: @room.url_token), method: :delete, data: { confirm: "退室しますか？" }, class: 'pure-button InInfoField' %>
     <% end %>

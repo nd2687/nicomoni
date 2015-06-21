@@ -34,6 +34,24 @@ class RoomsController < ApplicationController
     }
     if @room.broadcasts.where(live: true).count > 0
       @live = true
+
+      niconico = Niconico.new(ENV['email'], ENV['password'])
+      niconico.login
+      @api = Niconico::Live::API.new(niconico.agent)
+      @room.broadcasts.where(live: true).each.with_index(1) do |broadcast, i|
+        status = @api.get_player_status(broadcast.get_id)
+        if status[:error].present?
+          if status[:error] == "full"
+            flash.now[:alert] = "満席のため視聴することができません。(ニコニコ生放送)"
+          end
+          if status[:error] == "require_community_member"
+            flash.now[:alert] = "コミュニティ限定のため視聴することができません。(ニコニコ生放送)"
+          end
+          broadcast.update(live: false)
+          break
+        end
+      end
+
       broadcast_create
     end
   end
@@ -85,8 +103,20 @@ class RoomsController < ApplicationController
     else
       @room = current_user.rooms.find_by(url_token: params[:broadcast][:url_token])
       @broadcast = @room.broadcasts.new(broadcast_params)
-      if @broadcast.save
-        render json: [ @broadcast, @room, form_authenticity_token ]
+      unless @api
+        niconico = Niconico.new(ENV['email'], ENV['password'])
+        niconico.login
+        @api = Niconico::Live::API.new(niconico.agent)
+        @room.broadcasts.where(live: true).each.with_index(1) do |broadcast, i|
+          status = @api.get_player_status(broadcast.get_id)
+          if status[:error].present?
+            broadcast.update(live: false)
+            break
+          end
+        end
+      end
+      if @broadcast.save && @api
+        render json: [ @broadcast, @room, form_authenticity_token, @broadcast.get_community(@api), @broadcast.get_base_time(@api) ]
       else
         render json: [ false ]
       end
