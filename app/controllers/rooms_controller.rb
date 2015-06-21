@@ -1,6 +1,7 @@
 class RoomsController < ApplicationController
   before_action :authorize_user, except: :index
   before_action :check_room_owner, only: :broadcast_create
+  before_action :niconico_login, only: [ :show, :broadcast_create ]
 
   def index
     @rooms = Room.published
@@ -35,9 +36,6 @@ class RoomsController < ApplicationController
     if @room.broadcasts.where(live: true).count > 0
       @live = true
 
-      niconico = Niconico.new(ENV['email'], ENV['password'])
-      niconico.login
-      @api = Niconico::Live::API.new(niconico.agent)
       @room.broadcasts.where(live: true).each.with_index(1) do |broadcast, i|
         status = @api.get_player_status(broadcast.get_id)
         if status[:error].present?
@@ -103,16 +101,11 @@ class RoomsController < ApplicationController
     else
       @room = current_user.rooms.find_by(url_token: params[:broadcast][:url_token])
       @broadcast = @room.broadcasts.new(broadcast_params)
-      unless @api
-        niconico = Niconico.new(ENV['email'], ENV['password'])
-        niconico.login
-        @api = Niconico::Live::API.new(niconico.agent)
-        @room.broadcasts.where(live: true).each.with_index(1) do |broadcast, i|
-          status = @api.get_player_status(broadcast.get_id)
-          if status[:error].present?
-            broadcast.update(live: false)
-            break
-          end
+      @room.broadcasts.where(live: true).each.with_index(1) do |broadcast, i|
+        status = @api.get_player_status(broadcast.get_id)
+        if status[:error].present?
+          broadcast.update(live: false)
+          break
         end
       end
       if @broadcast.save && @api
@@ -132,7 +125,7 @@ class RoomsController < ApplicationController
   def remove_broadcast
     broadcast = Broadcast.find(params[:id])
     if broadcast.update(live: false)
-      flash[:notice] = "#{broadcast.id}ちゃんを削除しました。"
+      flash[:notice] = "#{broadcast.get_id}を取り消しました。"
     else
       flash.now[:alert] = "エラー"
     end
@@ -169,4 +162,10 @@ class RoomsController < ApplicationController
     current_user.owner?(@room) ? false : true
   end
   helper_method :listener?
+
+  def niconico_login
+    @niconico = Niconico.new(ENV['email'], ENV['password']) unless @niconico
+    @niconico.login unless @niconico.logined
+    @api = Niconico::Live::API.new(@niconico.agent) unless @api
+  end
 end
