@@ -12,10 +12,10 @@ class Broadcast < ActiveRecord::Base
 
   private
   def nicoliveplayer
-    lv = self.url.match(/lv[0-9]+/).to_s
+    id = self.url.match(/lv[0-9]+/).to_s
     nicoliveplayer_format = "http://live.nicovideo.jp/nicoliveplayer.swf"
     nicoliveplayer_format.freeze
-    self.player_url = nicoliveplayer_format + "?v=" + lv
+    self.player_url = nicoliveplayer_format + "?v=" + id
   end
 
   def platform_check
