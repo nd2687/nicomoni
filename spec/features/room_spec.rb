@@ -18,7 +18,7 @@ feature 'check process of Room' do
     expect(RoomUser.last.user).to eq(user)
 
     room_count = Room.count
-    click_link '退室'
+    click_on '退室'
     expect(incremented - 1).to eq(RoomUser.count)
     expect(Room.count).to eq(room_count)
   end
@@ -29,7 +29,7 @@ feature 'check process of Room' do
     room_user_count = RoomUser.count
     click_link "Roomへ戻る"
     expect(RoomUser.count).to eq(room_user_count)
-    click_link "このRoomを削除する"
+    click_on "Roomを削除する"
     expect(owner.room_users.count).to eq(0)
   end
 end

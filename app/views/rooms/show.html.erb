@@ -42,7 +42,7 @@
     </div>
 
     <% if current_user.owner?(@room) %>
-      <%= button_to 'このRoomを削除する', @room, method: :delete, data: { confirm: "この処理は元に戻せません。\n本当に削除しますか？" }, class: 'pure-button InInfoField' %>
+      <%= button_to 'Roomを削除する', @room, method: :delete, data: { confirm: "この処理は元に戻せません。\n本当に削除しますか？" }, class: 'pure-button InInfoField' %>
     <% else %>
       <%= button_to "退室", exit_room_room_path(url_token: @room.url_token), method: :delete, data: { confirm: "退室しますか？" }, class: 'pure-button InInfoField' %>
     <% end %>
