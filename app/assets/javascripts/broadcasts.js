@@ -36,10 +36,10 @@ $(document).on("ready page:load", function() {
 
   $('.RemoveButton').mouseover(function() {
     var id = $(this).attr('id');
-    $('.broadcastsField').find('#'+id).wrap('<div class="ButtonFilter">');
+    $('.broadcastsField').find('#'+id).css("border-left", "4px solid #ab3950");
   }).mouseout(function() {
     var id = $(this).attr('id');
-    $('.broadcastsField').find('#'+id).unwrap();
+    $('.broadcastsField').find('#'+id).css("border-left", "");
   });
 
   form.bind("ajax:error", function(e, data, status, xhr) {
@@ -78,5 +78,6 @@ $(document).on("ready page:load", function() {
   });
 
   $('.InInfoField').on('click', function(e) { e.stopPropagation(); });
+  $('.CommunityThumbnail').on('click', function(e) { e.stopPropagation(); });
 });
 

@@ -25,6 +25,7 @@ class Broadcast < ActiveRecord::Base
   end
 
   URL = {
+    community: "http://com.nicovideo.jp/community/",
     community_thumbnail: "http://icon.nimg.jp/community/s/"
   }
 

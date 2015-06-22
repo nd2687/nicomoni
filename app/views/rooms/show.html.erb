@@ -31,7 +31,7 @@
       <% if @live %>
         <% @broadcasts.each do |broadcast| %>
           <div class="CommunityThumbnail">
-            <%= image_tag(Broadcast::URL[:community_thumbnail] + broadcast.get_community(@api)) %>
+            <%= link_to image_tag(Broadcast::URL[:community_thumbnail] + broadcast.get_community(@api)), Broadcast::URL[:community]+broadcast.get_community(@api), :target => "_blank" %>
             <% if current_user.owner?(@room) %>
               <%= button_to "取り消し", remove_broadcast_room_path(url_token: @room.url_token), { class: 'RemoveButton InInfoField', id: "#{broadcast.id}", method: :patch, params: { id: "#{broadcast.id}" } } %>
             <% end %>
