@@ -5,14 +5,21 @@ $(document).on("ready page:load", function() {
     }, 7500);
   });
 
-  $(window).mousemove(function(e){
-    var client_pos_x = e.clientX,
-        client_pos_y = e.clientY;
-    if(client_pos_x < 170 && client_pos_y < 300){
-      $('#menuLink').slideDown('slow');
-    }
-    else {
-      $('#menuLink').fadeOut('slow');
+  var menu        = $('#menu'),
+      menu_open   = $('#menuOpen'),
+      menu_remove = $('#menuRemove');
+
+  $('#menuLink').on('click', function() {
+    if(menu.hasClass('open')) {
+      menu.animate({'left': -150}, 300).removeClass('open');
+      menu_remove.fadeOut('fast', function() {
+        menu_open.fadeIn('fast');
+      });
+    } else {
+      menu.animate({'left': 0}, 300).addClass('open');
+      menu_open.fadeOut('fast', function() {
+        menu_remove.fadeIn('fast');
+      });
     }
   });
 });

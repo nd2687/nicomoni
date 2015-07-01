@@ -12,7 +12,7 @@ Add transition to containers so they can push in and out.
 */
 #layout,
 #menu,
-.menu-link {
+{
     -webkit-transition: all 0.2s ease-out;
     -moz-transition: all 0.2s ease-out;
     -ms-transition: all 0.2s ease-out;
@@ -32,7 +32,7 @@ This is the parent `<div>` that contains the menu and the content area.
         width: 150px;
     }
 
-    #layout.active .menu-link {
+    #layout.active {
         left: 150px;
     }
 /*
@@ -79,11 +79,10 @@ appears on the left side of the page.
 */
 
 #menu {
-    margin-left: -150px; /* "#menu" width */
     width: 150px;
     position: fixed;
     top: 0;
-    left: 0;
+    left: -150px;
     bottom: 0;
     z-index: 1000; /* so the menu or its navicon stays above all content */
     background: #191818;
@@ -156,48 +155,48 @@ how it works:
 `.menu-link` represents the responsive menu toggle that shows/hides on
 small screens.
 */
-.menu-link {
-    position: fixed;
-    display: block; /* show this only on small screens */
-    top: 0;
-    left: 0; /* "#menu width" */
-    background: #000;
-    background: rgba(0,0,0,0.7);
-    font-size: 10px; /* change this value to increase/decrease button size */
-    z-index: 10;
-    width: 2em;
-    height: auto;
-    padding: 2.1em 1.6em;
-}
-
-    .menu-link:hover,
-    .menu-link:focus {
-        background: #000;
-    }
-
-    .menu-link span {
-        position: relative;
-        display: block;
-    }
-
-    .menu-link span,
-    .menu-link span:before,
-    .menu-link span:after {
-        background-color: #fff;
-        width: 100%;
-        height: 0.15em;
-    }
-
-        .menu-link span:before,
-        .menu-link span:after {
-            position: absolute;
-            margin-top: -0.6em;
-            content: " ";
-        }
-
-        .menu-link span:after {
-            margin-top: 0.6em;
-        }
+/* .menu-link { */
+/*     position: fixed; */
+/*     display: block; /* show this only on small screens */
+/*     top: 0; */
+/*     left: 0; /* "#menu width" */
+/*     background: #000; */
+/*     background: rgba(0,0,0,0.7); */
+/*     font-size: 10px; /* change this value to increase/decrease button size */
+/*     z-index: 10; */
+/*     width: 2em; */
+/*     height: auto; */
+/*     padding: 2.1em 1.6em; */
+/* } */
+/*  */
+/*     .menu-link:hover, */
+/*     .menu-link:focus { */
+/*         background: #000; */
+/*     } */
+/*  */
+/*     .menu-link span { */
+/*         position: relative; */
+/*         display: block; */
+/*     } */
+/*  */
+/*     .menu-link span, */
+/*     .menu-link span:before, */
+/*     .menu-link span:after { */
+/*         background-color: #fff; */
+/*         width: 100%; */
+/*         height: 0.15em; */
+/*     } */
+/*  */
+/*         .menu-link span:before, */
+/*         .menu-link span:after { */
+/*             position: absolute; */
+/*             margin-top: -0.6em; */
+/*             content: " "; */
+/*         } */
+/*  */
+/*         .menu-link span:after { */
+/*             margin-top: 0.6em; */
+/*         } */
 
 
 /* -- Responsive Styles (Media Queries) ------------------------------------- */
@@ -227,9 +226,9 @@ Hides the menu at `48em`, but modify this based on your app's needs.
         display: none;
     }
 
-    #layout.active .menu-link {
-        left: 150px;
-    }
+    /* #layout.active .menu-link { */
+    /*     left: 150px; */
+    /* } */
 }
 
 @media (max-width: 480em) {
