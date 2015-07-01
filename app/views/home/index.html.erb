@@ -7,7 +7,7 @@
     <h2 class="content-subhead">対応ブロードキャスティングサービス</h2>
     <ul>
       <li>
-      ニコニコ生放送 <%= link_to "http://www.nicovideo.jp/", "http://www.nicovideo.jp/" %>
+      ニコニコ生放送 <%= link_to "http://www.nicovideo.jp/", "http://www.nicovideo.jp/", class: "BaseLink" %>
       </li>
     </ul>
     <p>多窓閲覧、共有(チャット)ができます。</p>
@@ -17,12 +17,12 @@
     <br>
     誰でも無料で登録・ご利用できます。
     <br>
-    <%= link_to "ライブストリーミングを多窓する", :broadcasts %>
+    <%= link_to "ライブストリーミングを多窓する", :broadcasts, class: "BaseLink" %>
     <br>
-    <%= link_to "ライブストリーミングを多窓共有する", :rooms %>
+    <%= link_to "ライブストリーミングを多窓共有する", :rooms, class: "BaseLink" %>
 </div>
 <div class="InquiryMail">
   お問い合わせ先
   <br>
-  <%= mail_to "tkwn1washere@gmail.com" %>
+  <%= mail_to "tkwn1washere@gmail.com", 'email', subject: "お問い合わせ(Nicomoni)", class: "BaseLink" %>
 </div>

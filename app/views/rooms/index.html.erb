@@ -1,12 +1,12 @@
 <h1>Roomとは</h1>
 Roomに入ることで他の人とライブストリーミングを共有できます。<br>
-Roomを作成、入室したい場合は<%= link_to "無料ユーザー登録・ログイン", :new_user %>が必要です。
+Roomを作成、入室したい場合は<%= link_to "無料ユーザー登録・ログイン", :new_user, class: "BaseLink" %>が必要です。
 <br>
 <br>
 <% if current_user && current_user.active_room? %>
   <%= link_to "Roomへ戻る", room_path(url_token: current_user.active_room.url_token), class: 'pure-button' %>
 <% else %>
-  <%= link_to "Roomを作成する", :new_room %>
+  <%= link_to "Roomを作成する", :new_room, class: 'pure-button' %>
 <% end %>
 
 <br>

@@ -1,4 +1,4 @@
-<%= link_to "スレッド一覧へ", :boards %>
+<%= link_to "スレッド一覧へ", :boards, class: "BaseLink" %>
 <h2><%= @board.title %></h2>
 <small><%= "#{@board.created_at.strftime('%Y/%m/%d %H:%M')} 作成" %></small>
 
