@@ -2,6 +2,13 @@
 <%= link_to "板作成", :new_board, class: 'pure-button' %>
 <ul>
   <% @boards.each do |board| %>
-    <li><%= link_to board.title, [ board, :responses ] %></li>
+    <li style="list-style:none">
+      <h4>
+        <%= link_to board.title, [ board, :responses ], class: "BoardLink" %>
+      </h4>
+      <small>
+        <%= "#{board.created_at.strftime('%Y/%m/%d %H:%M')} 作成" %>
+      </small>
+    </li>
   <% end %>
 </ul>

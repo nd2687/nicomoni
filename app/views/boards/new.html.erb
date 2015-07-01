@@ -1,6 +1,8 @@
 <%= form_for @board, html: { class: 'pure-form pure-form-stacked', role: 'form' } do |f| %>
   <%= f.label :title, "板名" %>
-  <%= f.text_field :title, placeholder: "板名", required: true  %>
+  <div class="pure-u-3-5">
+    <%= f.text_field :title, placeholder: "板名", required: true, class: "pure-input-1" %>
+  </div>
   <br>
   <%= f.submit "作成", type: 'submit', class: 'pure-button pure-button-primary' %>
 <% end %>
