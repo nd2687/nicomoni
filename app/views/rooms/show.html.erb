@@ -1,18 +1,18 @@
 <div class="broadcastsField box">
-<% if listener? || @live %>
-  <% if @broadcasts.present? %>
-    <% @broadcasts.each do |broadcast| %>
-      <iframe width="960px" height="488px" frameborder='0' src="<%= broadcast.player_url %>" id="<%= broadcast.id %>">
-        <embed type="application/x&#45;shockwave&#45;flash" src="<%= broadcast.player_url %>" name="plugin" height="100%" width="100%"></embed>
-      </iframe>
+  <% if listener? || @live %>
+    <% if @broadcasts.present? %>
+      <% @broadcasts.each do |broadcast| %>
+        <iframe width="960px" height="488px" frameborder='0' src="<%= broadcast.player_url %>" id="<%= broadcast.id %>">
+          <embed type="application/x&#45;shockwave&#45;flash" src="<%= broadcast.player_url %>" name="plugin" height="100%" width="100%"></embed>
+        </iframe>
+      <% end %>
+      <% if @broadcasts.size < 2 && !listener? %>
+        <%= render 'broadcast_form' %>
+      <% end %>
     <% end %>
-    <% if @broadcasts.size < 2 && !listener? %>
-      <%= render 'broadcast_form' %>
-    <% end %>
+  <% else %>
+    <%= render 'broadcast_form' %>
   <% end %>
-<% else %>
-  <%= render 'broadcast_form' %>
-<% end %>
 </div>
 
 <div class="sidebar right CommentField">
@@ -50,7 +50,7 @@
     <br>
     <% if @room.room_users.present? %>
       <% @room.room_users.each do |room_user| %>
-        <%= link_to image_tag("/images/user_icons/user#{room_user.user.icon_number}.png", size: "30x30"), user_path(id: room_user.user.id), class: "InInfoField UserLinkImage" %>
+        <%= link_to image_tag("/images/user_icons/user#{room_user.user.icon_number}.png", size: "30x30"), user_path(id: room_user.user.id), class: "InInfoField UserLinkImage", title: room_user.user.nickname %>
       <% end %>
     <% end %>
 
