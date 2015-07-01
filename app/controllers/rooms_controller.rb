@@ -35,7 +35,6 @@ class RoomsController < ApplicationController
     }
     if @room.broadcasts.where(live: true).count > 0
       @live = true
-
       @room.broadcasts.where(live: true).each.with_index(1) do |broadcast, i|
         status = @api.get_player_status(broadcast.get_id)
         if status[:error].present?
@@ -49,7 +48,6 @@ class RoomsController < ApplicationController
           break
         end
       end
-
       broadcast_create
     end
   end

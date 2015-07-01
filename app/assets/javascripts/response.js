@@ -20,7 +20,7 @@ $(document).on("ready page:load", function(){
 
     if(data === false){ console.log("error"); return false; }
     var ul = $('.ResponseList');
-    ul.append('<li style="list-style:none;">'+ index+ ' '+ name +' <i class="fa fa-pencil"></i> '+ created_at +'<h4 style="color:#3d4eb7">'+ comment_body +'</h4></li>');
+    ul.append('<li style="list-style:none;"> #'+ index +' '+ name +' <i class="fa fa-pencil"></i> '+ created_at +'<h4 style="color:#3d4eb7">'+ comment_body +'</h4></li>');
   });
 
   form.bind("ajax:error", function(e, data, status, xhr){
