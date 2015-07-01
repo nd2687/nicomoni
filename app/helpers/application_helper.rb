@@ -13,4 +13,9 @@ module ApplicationHelper
     end
     return arr
   end
+
+  def hbr(text)
+    text = html_escape(text)
+    text.gsub(/\r\n|\r|\n/, "<br />").html_safe
+  end
 end

@@ -14,7 +14,7 @@ class ResponsesController < ApplicationController
     @response = @board.responses.new(response_params)
     @response.name = current_user.nickname
     if @response.save
-      render json: @response
+      render json: [ @response, @response.created_at.strftime('%Y/%m/%d %H:%M'), @board.responses.size ]
     else
       render json: false
     end

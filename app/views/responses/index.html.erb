@@ -1,22 +1,23 @@
-<h3><%= @board.title %></h3>
+<%= link_to "スレッド一覧へ", :boards %>
+<h2><%= @board.title %></h2>
 <small><%= "#{@board.created_at.strftime('%Y/%m/%d %H:%M')} 作成" %></small>
 
 <ul class="ResponseList">
-  <% @responses.each do |res| %>
+  <% @responses.each.with_index(1) do |res, i| %>
     <% if res.persisted? %>
       <li style="list-style:none">
-        <h4>
-          <%= res.comment %>
+        <%= i %> <%= res.name %> <%= fa_icon "pencil" %> <%= res.created_at.strftime('%Y/%m/%d %H:%M') %>
+        <h4 style="color:#3d4eb7">
+          <%= hbr res.comment %>
         </h4>
-        <%= res.name %><%= res.created_at.strftime('%Y/%m/%d %H:%M') %>
       </li>
     <% end %>
   <% end %>
 </ul>
 
 <%= form_for [ @board, @response ], html: { class: 'pure-form pure-form-stacked', role: 'form' }, remote: true do |f| %>
-  <%= f.label :comment, "レスを書く" %>
-  <%= f.text_area :comment, placeholder: "コメント", required: true  %>
+  <%= fa_icon "reply" %> <%= f.label :comment, "レスを書く" %>
+  <%= f.text_area :comment, placeholder: "コメント", required: true, rows: 4, cols: 50 %>
   <br>
   <%= f.submit "作成", type: 'submit', class: 'pure-button pure-button-primary' %>
 <% end %>

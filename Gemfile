@@ -20,6 +20,8 @@ gem 'react-rails', '~> 1.0'
 
 gem 'niconico', :github => 'totoman/niconico', :branch => 'external'
 
+gem "font-awesome-rails"
+
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
