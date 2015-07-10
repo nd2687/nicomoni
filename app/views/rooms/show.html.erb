@@ -31,11 +31,19 @@
       <% if @live %>
         <% @broadcasts.each do |broadcast| %>
           <div class="CommunityThumbnail">
-            <%= link_to image_tag(Broadcast::URL[:community_thumbnail] + broadcast.get_community(@api)), Broadcast::URL[:community]+broadcast.get_community(@api), :target => "_blank" %>
+            <% if broadcast.niconico? %>
+              <%= link_to image_tag(Broadcast::URL[:community_thumbnail] + broadcast.get_community(@api)), Broadcast::URL[:community]+broadcast.get_community(@api), :target => "_blank" %>
+            <% elsif broadcast.twitcasting? %>
+              <%= link_to image_tag(broadcast.get_user_icon), broadcast.get_user_icon, :target => "_blank" %>
+            <% end %>
             <% if current_user.owner?(@room) %>
               <%= button_to "取り消し", remove_broadcast_room_path(url_token: @room.url_token), { class: 'RemoveButton InInfoField', id: "#{broadcast.id}", method: :patch, params: { id: "#{broadcast.id}" } } %>
             <% end %>
-            <%= broadcast.get_base_time(@api) %>
+            <% if broadcast.niconico? %>
+              <%= broadcast.get_base_time(@api) %>
+            <% elsif broadcast.twitcasting? %>
+              <%= broadcast.get_duration %>
+            <% end %>
           </div>
         <% end %>
       <% end %>

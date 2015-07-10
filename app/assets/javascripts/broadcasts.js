@@ -1,6 +1,5 @@
 function broadcasting() {
-  var form  = $(document).find("form#new_broadcast"),
-      count = 0;
+  var form  = $(document).find("form#new_broadcast");
 
   form.bind("ajax:success", function(e, data, status, xhr) {
     var broadcast = data[0];
@@ -16,13 +15,7 @@ function broadcasting() {
           iframeblock = $('<iframe src="' + src + '" frameborder="0" height="488px" width="960px" id="'+broadcast.id+'">'),
           embedblock  = $('<embed type="application/x&#45;shockwave&#45;flash" src="' + src + '" name="plugin" height="100%" width="100%">');
 
-      if(count === 0){
-        $('.broadcastsField').prepend(iframeblock.append(embedblock));
-      } else {
-        $('.broadcastsField').append(iframeblock.append(embedblock));
-      }
-      count += 1;
-      if(count === 2){ form.parents('.prepareblock').remove(); }
+      two_screen(form, iframeblock, embedblock);
 
       var url = "http://icon.nimg.jp/community/s/"+community;
       remove_cast_btn(room, broadcast, token, url, open_time);
@@ -31,17 +24,13 @@ function broadcasting() {
       var room      = data[1],
           token     = data[2],
           userid    = data[3],
-          open_time = data[4];
+          open_time = data[4],
+          player_url  = broadcast.player_url,
+          src         = player_url,
+          iframeblock = $('<iframe src="' + src + '" frameborder="0" height="488px" width="960px" id="'+broadcast.id+'">'),
+          embedblock  = $('<embed type="application/x&#45;shockwave&#45;flash" src="' + src + '" name="plugin" height="100%" width="100%">');
 
-      var flash_video = $('<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="320" height="198" id="livestreamer" align="middle"><param name="allowScriptAccess" value="always" /><param name="allowFullScreen" value="true" /><param name="flashVars" value="user='+userid+'&lang=ja&mute=0&cupdate=0&offline=" /><param name="movie" value="http://twitcasting.tv/swf/livestreamer2sp.swf" /><param name="quality" value="high" /><param name="bgcolor" value="#ffffff" /><embed src="http://twitcasting.tv/swf/livestreamer2sp.swf" quality="high" bgcolor="#ffffff" width="320" height="198" name="livestreamer" id="livestreamderembed" align="middle" allowScriptAccess="always" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" flashVars="user='+userid+'&lang=ja&mute=0&cupdate=0&offline=" ></object>')
-
-      if(count === 0){
-        $('.broadcastsField').prepend(flash_video);
-      } else {
-        $('.broadcastsField').append(flash_video);
-      }
-      count += 1;
-      if(count === 2){ form.parents('.prepareblock').remove(); }
+      two_screen(form, iframeblock, embedblock);
 
       var url = "http://api.twitcasting.tv/api/userstatus?user="+userid;
       var image_url = "";
@@ -86,6 +75,17 @@ function remove_cast_btn(room, broadcast, token, url, open_time){
       thumbnail       = $('<img alt="'+url+'" src="'+url+'">'),
       thumbnail_block = $('<div class="CommunityThumbnail">');
   $('.BroadcastInfoBlock').append(thumbnail_block.append(thumbnail).append(removeButton.append(hiddenBlock).append(buttonBlock).append(hiddenBlock2).append(hiddenBlock3)).append(open_time));
+}
+
+function two_screen(form, iframeblock, embedblock){
+  var count = 0;
+  if(count === 0){
+    $('.broadcastsField').prepend(iframeblock.append(embedblock));
+  } else {
+    $('.broadcastsField').append(iframeblock.append(embedblock));
+  }
+  count += 1;
+  if(count === 2){ form.parents('.prepareblock').remove(); }
 }
 
 function room_field_toggle() {

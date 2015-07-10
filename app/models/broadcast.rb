@@ -65,6 +65,14 @@ class Broadcast < ActiveRecord::Base
     return "#{start_time.strftime("%H:%M:%S")} ~"
   end
 
+  def get_user_icon
+    uri = "http://api.twitcasting.tv/api/userstatus?user=#{get_userid}"
+    jsonp = open(uri).read
+    payload = jsonp[/{.+}/]
+    data = JSON.parse(payload)
+    return data["image"]
+  end
+
   def niconico?
     platform == "niconico"
   end

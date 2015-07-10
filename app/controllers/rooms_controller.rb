@@ -36,16 +36,18 @@ class RoomsController < ApplicationController
     if @room.broadcasts.where(live: true).count > 0
       @live = true
       @room.broadcasts.where(live: true).each.with_index(1) do |broadcast, i|
-        status = @api.get_player_status(broadcast.get_id)
-        if status[:error].present?
-          if status[:error] == "full"
-            flash.now[:alert] = "満席のため視聴することができません。(ニコニコ生放送)"
+        if broadcast.niconico?
+          status = @api.get_player_status(broadcast.get_id)
+          if status[:error].present?
+            if status[:error] == "full"
+              flash.now[:alert] = "満席のため視聴することができません。(ニコニコ生放送)"
+            end
+            if status[:error] == "require_community_member"
+              flash.now[:alert] = "コミュニティ限定のため視聴することができません。(ニコニコ生放送)"
+            end
+            broadcast.update(live: false)
+            break
           end
-          if status[:error] == "require_community_member"
-            flash.now[:alert] = "コミュニティ限定のため視聴することができません。(ニコニコ生放送)"
-          end
-          broadcast.update(live: false)
-          break
         end
       end
       broadcast_create
@@ -100,10 +102,12 @@ class RoomsController < ApplicationController
       @room = current_user.rooms.find_by(url_token: params[:broadcast][:url_token])
       @broadcast = @room.broadcasts.new(broadcast_params)
       @room.broadcasts.where(live: true).each.with_index(1) do |broadcast, i|
-        status = @api.get_player_status(broadcast.get_id)
-        if status[:error].present?
-          broadcast.update(live: false)
-          break
+        if broadcast.niconico?
+          status = @api.get_player_status(broadcast.get_id)
+          if status[:error].present?
+            broadcast.update(live: false)
+            break
+          end
         end
       end
       if @broadcast.save && @broadcast.niconico?
@@ -125,7 +129,11 @@ class RoomsController < ApplicationController
   def remove_broadcast
     broadcast = Broadcast.find(params[:id])
     if broadcast.update(live: false)
-      flash[:notice] = "#{broadcast.get_id}を取り消しました。"
+      if broadcast.niconico?
+        flash[:notice] = "#{broadcast.get_id}を取り消しました。"
+      else broadcast.twitcasting?
+        flash[:notice] = "#{broadcast.get_userid}のライブを取り消しました。"
+      end
     else
       flash.now[:alert] = "エラー"
     end
