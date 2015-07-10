@@ -42,6 +42,8 @@ function broadcasting() {
         remove_cast_btn(room, broadcast, token, image_url, open_time);
       });
     }
+
+    $('#broadcast_url').val('');
   });
 
   form.bind("ajax:error", function(e, data, status, xhr) {
