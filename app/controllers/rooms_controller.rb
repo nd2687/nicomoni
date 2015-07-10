@@ -106,8 +106,10 @@ class RoomsController < ApplicationController
           break
         end
       end
-      if @broadcast.save && @api
+      if @broadcast.save && @broadcast.niconico?
         render json: [ @broadcast, @room, form_authenticity_token, @broadcast.get_community(@api), @broadcast.get_base_time(@api) ]
+      elsif @broadcast.save && @broadcast.twitcasting?
+        render json: [ @broadcast, @room, form_authenticity_token, @broadcast.get_userid, @broadcast.get_duration ]
       else
         render json: [ false ]
       end

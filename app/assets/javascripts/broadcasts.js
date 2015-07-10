@@ -1,37 +1,58 @@
-$(document).on("ready page:load", function() {
+function broadcasting() {
   var form  = $(document).find("form#new_broadcast"),
       count = 0;
 
   form.bind("ajax:success", function(e, data, status, xhr) {
-    var broadcast = data[0],
-        room      = data[1],
-        token     = data[2],
-        community = data[3],
-        base_time = data[4];
-
+    var broadcast = data[0];
     if(broadcast === "<"){ return false; }
-    var player_url  = broadcast.player_url,
-        src         = player_url + "&#38;amp;languagecode=ja&#45;jp",
-        iframeblock = $('<iframe src="' + src + '" frameborder="0" height="488px" width="960px" id="'+broadcast.id+'">'),
-        embedblock  = $('<embed type="application/x&#45;shockwave&#45;flash" src="' + src + '" name="plugin" height="100%" width="100%">');
-    if(count === 0){
-      $('.broadcastsField').prepend(iframeblock.append(embedblock));
-    } else {
-      $('.broadcastsField').append(iframeblock.append(embedblock));
-    }
-    count += 1;
-    if(count === 2){ form.parents('.prepareblock').remove(); }
 
-    var id = broadcast.id;
-    var removeButton    = $('<form class="button_to" action="/rooms/'+room.url_token+'/remove_broadcast" method="post">'),
-        hiddenBlock     = $('<input type="hidden" value="patch" name="_method">'),
-        hiddenBlock2    = $('<input type="hidden" value="'+id+'" name="id">'),
-        hiddenBlock3    = $('<input type="hidden" value="'+token+'" name="authenticity_token">'),
-        buttonBlock     = $('<input type="submit" class="RemoveButton InInfoField" id="'+id+'" value="取り消し">'),
-        thumbnail       = $('<img alt="'+community+'" src="http://icon.nimg.jp/community/s/'+community+'">'),
-        open_time       = base_time,
-        thumbnail_block = $('<div class="CommunityThumbnail">');
-    $('.BroadcastInfoBlock').append(thumbnail_block.append(thumbnail).append(removeButton.append(hiddenBlock).append(buttonBlock).append(hiddenBlock2).append(hiddenBlock3)).append(open_time));
+    if(broadcast.platform === "niconico") {
+      var room        = data[1],
+          token       = data[2],
+          community   = data[3],
+          open_time   = data[4],
+          player_url  = broadcast.player_url,
+          src         = player_url + "&#38;amp;languagecode=ja&#45;jp",
+          iframeblock = $('<iframe src="' + src + '" frameborder="0" height="488px" width="960px" id="'+broadcast.id+'">'),
+          embedblock  = $('<embed type="application/x&#45;shockwave&#45;flash" src="' + src + '" name="plugin" height="100%" width="100%">');
+
+      if(count === 0){
+        $('.broadcastsField').prepend(iframeblock.append(embedblock));
+      } else {
+        $('.broadcastsField').append(iframeblock.append(embedblock));
+      }
+      count += 1;
+      if(count === 2){ form.parents('.prepareblock').remove(); }
+
+      var url = "http://icon.nimg.jp/community/s/"+community;
+      remove_cast_btn(room, broadcast, token, url, open_time);
+    }
+    else if(broadcast.platform === "twitcasting") {
+      var room      = data[1],
+          token     = data[2],
+          userid    = data[3],
+          open_time = data[4];
+
+      var flash_video = $('<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="320" height="198" id="livestreamer" align="middle"><param name="allowScriptAccess" value="always" /><param name="allowFullScreen" value="true" /><param name="flashVars" value="user='+userid+'&lang=ja&mute=0&cupdate=0&offline=" /><param name="movie" value="http://twitcasting.tv/swf/livestreamer2sp.swf" /><param name="quality" value="high" /><param name="bgcolor" value="#ffffff" /><embed src="http://twitcasting.tv/swf/livestreamer2sp.swf" quality="high" bgcolor="#ffffff" width="320" height="198" name="livestreamer" id="livestreamderembed" align="middle" allowScriptAccess="always" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" flashVars="user='+userid+'&lang=ja&mute=0&cupdate=0&offline=" ></object>')
+
+      if(count === 0){
+        $('.broadcastsField').prepend(flash_video);
+      } else {
+        $('.broadcastsField').append(flash_video);
+      }
+      count += 1;
+      if(count === 2){ form.parents('.prepareblock').remove(); }
+
+      var url = "http://api.twitcasting.tv/api/userstatus?user="+userid;
+      var image_url = "";
+      get_user_image(url).done(function(json){
+        image_url = json.image;
+        remove_cast_btn(room, broadcast, token, image_url, open_time);
+      }).fail(function(json){
+        console.log("error");
+        remove_cast_btn(room, broadcast, token, image_url, open_time);
+      });
+    }
   });
 
   $('.RemoveButton').mouseover(function() {
@@ -45,26 +66,29 @@ $(document).on("ready page:load", function() {
   form.bind("ajax:error", function(e, data, status, xhr) {
     alert("error");
   });
+}
 
-  var change_aspect_form = $('#change_aspect_form');
-  $('#aspect_ratio').change(function() { change_aspect_form.submit(); });
-  change_aspect_form.bind("ajax:success", function(e, data, status, xhr) {
-    $('.broadcastsField').find('iframe').attr('width', data[0]).attr('height', data[1]);
+function get_user_image(url){
+  return $.ajax({
+    type: 'GET',
+    url: url,
+    dataType: 'jsonp',
   });
+}
 
-  change_aspect_form.bind("ajax:error", function(e, data, status, xhr) {
-    alert('error');
-  });
+function remove_cast_btn(room, broadcast, token, url, open_time){
+  var id = broadcast.id;
+  var removeButton    = $('<form class="button_to" action="/rooms/'+room.url_token+'/remove_broadcast" method="post">'),
+      hiddenBlock     = $('<input type="hidden" value="patch" name="_method">'),
+      hiddenBlock2    = $('<input type="hidden" value="'+id+'" name="id">'),
+      hiddenBlock3    = $('<input type="hidden" value="'+token+'" name="authenticity_token">'),
+      buttonBlock     = $('<input type="submit" class="RemoveButton InInfoField" id="'+id+'" value="取り消し">'),
+      thumbnail       = $('<img alt="'+url+'" src="'+url+'">'),
+      thumbnail_block = $('<div class="CommunityThumbnail">');
+  $('.BroadcastInfoBlock').append(thumbnail_block.append(thumbnail).append(removeButton.append(hiddenBlock).append(buttonBlock).append(hiddenBlock2).append(hiddenBlock3)).append(open_time));
+}
 
-  $('.UserLinkImage').on('click', function() {
-    window.open(this.href, 300, 200);
-    return false;
-  });
-
-  $('#aspect_ratio1').click(function(e){
-    e.stopPropagation();
-  });
-
+function room_field_toggle() {
   $('.RoomInfoField').on('click', function() {
     $(this).slideUp( function () {
       $('#RoomInfoTrigger').fadeIn();
@@ -76,8 +100,42 @@ $(document).on("ready page:load", function() {
       $('.RoomInfoField').slideDown();
     });
   });
+}
+
+function change_aspect() {
+  var change_aspect_form = $('#change_aspect_form');
+  $('#aspect_ratio').change(function() { change_aspect_form.submit(); });
+  change_aspect_form.bind("ajax:success", function(e, data, status, xhr) {
+    $('.broadcastsField').find('iframe').attr('width', data[0]).attr('height', data[1]);
+  });
+
+  change_aspect_form.bind("ajax:error", function(e, data, status, xhr) {
+    alert('error');
+  });
+}
+
+function user_link() {
+  $('.UserLinkImage').on('click', function() {
+    window.open(this.href, 300, 200);
+    return false;
+  });
+}
+
+function propagation() {
+  $('#aspect_ratio1').click(function(e){
+    e.stopPropagation();
+  });
 
   $('.InInfoField').on('click', function(e) { e.stopPropagation(); });
   $('.CommunityThumbnail').on('click', function(e) { e.stopPropagation(); });
+}
+
+
+$(document).on("ready page:load", function() {
+  broadcasting();
+  change_aspect();
+  user_link();
+  room_field_toggle();
+  propagation();
 });
 
