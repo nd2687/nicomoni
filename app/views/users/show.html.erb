@@ -18,7 +18,7 @@
     </tr>
   </thead>
   <tr>
-    <td><%= link_to @friends.size, [ :friends, @user ] %></td>
-    <td><%= link_to @followers.size, [ :followers, @user ] %></td>
+    <td><%= link_to @friends.size, [ :friends, @user ], class: "BaseLink" %></td>
+    <td><%= link_to @followers.size, [ :followers, @user ], class: "BaseLink" %></td>
   </tr>
 </table>

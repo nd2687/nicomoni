@@ -3,7 +3,7 @@
   <% @followers.each do |follower| %>
     <li>
       <%= "フォローしています" if current_user.friend?(follower) %>
-      <%= link_to follower.nickname, follower %>
+      <%= link_to follower.nickname, follower, class: "BaseLink" %>
     </li>
   <% end %>
 </ul>
