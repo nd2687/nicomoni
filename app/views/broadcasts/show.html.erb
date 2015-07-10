@@ -1,11 +1,26 @@
 <div class="broadcastsField box">
   <div class="prepareblock">
     <div class="prepareFormField">
+
+      <div style="color:white">
+        URLを入力する前に各サイトにログインしてください。
+      </div>
+
+      <div style="color:white;">
+        <p>
+          <h4>ニコニコ生放送</h4>例) http://live.nicovideo.jp/watch/lv*******?ref=community
+        </p>
+        <p>
+          <h4>twitcasting</h4>例) http://twitcasting.tv/*******
+        </p>
+      </div>
+
       <%= form_for @broadcast, method: :post, remote: true, html: { class: "pure-form" } do |f| %>
         <%= f.text_field :url, class: 'pure-input-1',
-          placeholder: "ニコ生URLを入力 例)http://live.nicovideo.jp/watch/lv*******?ref=community" %>
+          placeholder: "URLを入力 例)http://live.nicovideo.jp/watch/lv*******?ref=community" %>
         <%= f.submit '入力', type: 'submit', class: 'pure-button pure-button-primary' %>
       <% end %>
+
     </div>
   </div>
 </div>
