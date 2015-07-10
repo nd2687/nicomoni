@@ -21,10 +21,10 @@ function broadcasting() {
       remove_cast_btn(room, broadcast, token, url, open_time);
     }
     else if(broadcast.platform === "twitcasting") {
-      var room      = data[1],
-          token     = data[2],
-          userid    = data[3],
-          open_time = data[4],
+      var room        = data[1],
+          token       = data[2],
+          userid      = data[3],
+          open_time   = data[4],
           player_url  = broadcast.player_url,
           src         = player_url,
           iframeblock = $('<iframe src="' + src + '" frameborder="0" height="488px" width="960px" id="'+broadcast.id+'">'),
@@ -42,14 +42,6 @@ function broadcasting() {
         remove_cast_btn(room, broadcast, token, image_url, open_time);
       });
     }
-  });
-
-  $('.RemoveButton').mouseover(function() {
-    var id = $(this).attr('id');
-    $('.broadcastsField').find('#'+id).css("border-left", "4px solid #ab3950");
-  }).mouseout(function() {
-    var id = $(this).attr('id');
-    $('.broadcastsField').find('#'+id).css("border-left", "");
   });
 
   form.bind("ajax:error", function(e, data, status, xhr) {
