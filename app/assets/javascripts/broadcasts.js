@@ -116,10 +116,7 @@ function user_link() {
 }
 
 function propagation() {
-  $('#aspect_ratio1').click(function(e){
-    e.stopPropagation();
-  });
-
+  $('#aspect_ratio1').on('click', function(e){ e.stopPropagation(); });
   $('.InInfoField').on('click', function(e) { e.stopPropagation(); });
   $('.CommunityThumbnail').on('click', function(e) { e.stopPropagation(); });
 }
