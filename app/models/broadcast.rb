@@ -29,7 +29,8 @@ class Broadcast < ActiveRecord::Base
 
   URL = {
     community: "http://com.nicovideo.jp/community/",
-    community_thumbnail: "http://icon.nimg.jp/community/s/"
+    community_thumbnail: "http://icon.nimg.jp/community/s/",
+    twitcasting_tv: "http://twitcasting.tv/"
   }
 
   def get_id

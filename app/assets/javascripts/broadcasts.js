@@ -18,7 +18,7 @@ function broadcasting() {
       two_screen(form, iframeblock, embedblock);
 
       var url = "http://icon.nimg.jp/community/s/"+community;
-      remove_cast_btn(room, broadcast, token, url, open_time);
+      remove_cast_btn(room, broadcast, token, url, open_time, community);
     }
     else if(broadcast.platform === "twitcasting") {
       var room        = data[1],
@@ -36,10 +36,10 @@ function broadcasting() {
       var image_url = "";
       get_user_image(url).done(function(json){
         image_url = json.image;
-        remove_cast_btn(room, broadcast, token, image_url, open_time);
+        remove_cast_btn(room, broadcast, token, image_url, open_time, userid);
       }).fail(function(json){
         console.log("error");
-        remove_cast_btn(room, broadcast, token, image_url, open_time);
+        remove_cast_btn(room, broadcast, token, image_url, open_time, userid);
       });
     }
 
@@ -59,14 +59,21 @@ function get_user_image(url){
   });
 }
 
-function remove_cast_btn(room, broadcast, token, url, open_time){
+function remove_cast_btn(room, broadcast, token, url, open_time, link_info){
+  var site_link
+  if(broadcast.platform === "niconico"){
+    site_link = "http://com.nicovideo.jp/community/"+link_info
+  }
+  else if(broadcast.platform === "twitcasting"){
+    site_link = "http://twitcasting.tv/"+link_info
+  }
   var id = broadcast.id;
   var removeButton    = $('<form class="button_to" action="/rooms/'+room.url_token+'/remove_broadcast" method="post">'),
       hiddenBlock     = $('<input type="hidden" value="patch" name="_method">'),
       hiddenBlock2    = $('<input type="hidden" value="'+id+'" name="id">'),
       hiddenBlock3    = $('<input type="hidden" value="'+token+'" name="authenticity_token">'),
       buttonBlock     = $('<input type="submit" class="RemoveButton InInfoField" id="'+id+'" value="取り消し">'),
-      thumbnail       = $('<img alt="'+url+'" src="'+url+'">'),
+      thumbnail       = $('<a href="'+site_link+'" target="_blank"><img alt="'+url+'" src="'+url+'"></a>'),
       thumbnail_block = $('<div class="CommunityThumbnail">');
   $('.BroadcastInfoBlock').append(thumbnail_block.append(thumbnail).append(removeButton.append(hiddenBlock).append(buttonBlock).append(hiddenBlock2).append(hiddenBlock3)).append(open_time));
 }
