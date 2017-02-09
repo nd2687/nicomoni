@@ -18,7 +18,7 @@ gem 'annotate', '~> 2.6.6'
 
 gem 'react-rails', '~> 1.0'
 
-gem 'niconico', :github => 'totoman/niconico', :branch => 'external'
+gem 'niconico'
 
 gem "font-awesome-rails"
 

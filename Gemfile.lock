@@ -1,12 +1,3 @@
-GIT
-  remote: git://github.com/totoman/niconico.git
-  revision: e2a30c2f0f2a14098b52d35a58f43c779e08d4ba
-  branch: external
-  specs:
-    niconico (1.8.0.beta1)
-      mechanize (>= 2.7.3)
-      nokogiri (>= 1.6.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -87,7 +78,7 @@ GEM
     connection_pool (2.2.0)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
-    domain_name (0.5.24)
+    domain_name (0.5.20161129)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
     execjs (2.5.2)
@@ -102,7 +93,7 @@ GEM
       railties (>= 3.2, < 5.0)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
-    http-cookie (1.0.2)
+    http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (0.7.0)
     jbuilder (2.3.0)
@@ -120,13 +111,13 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    mechanize (2.7.3)
+    mechanize (2.7.5)
       domain_name (~> 0.5, >= 0.5.1)
       http-cookie (~> 1.0)
-      mime-types (~> 2.0)
+      mime-types (>= 1.17.2)
       net-http-digest_auth (~> 1.1, >= 1.1.1)
       net-http-persistent (~> 2.5, >= 2.5.2)
-      nokogiri (~> 1.4)
+      nokogiri (~> 1.6)
       ntlm-http (~> 0.1, >= 0.1.1)
       webrobots (>= 0.0.9, < 0.2)
     method_source (0.8.2)
@@ -135,11 +126,14 @@ GEM
     minitest (5.7.0)
     multi_json (1.11.1)
     mysql2 (0.3.18)
-    net-http-digest_auth (1.4)
+    net-http-digest_auth (1.4.1)
     net-http-persistent (2.9.4)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
+    niconico (1.8.0)
+      mechanize (>= 2.7.3)
+      nokogiri (>= 1.6.1)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     ntlm-http (0.1.1)
@@ -237,7 +231,7 @@ GEM
       json (>= 1.8.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.1)
+    unf_ext (0.0.7.2)
     unicorn (4.8.3)
       kgio (~> 2.6)
       rack
@@ -247,7 +241,7 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
-    webrobots (0.1.1)
+    webrobots (0.1.2)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -271,7 +265,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   mysql2
-  niconico!
+  niconico
   pry
   pry-byebug
   pry-rails
@@ -284,3 +278,9 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   unicorn (~> 4.8.3)
   web-console (~> 2.0)
+
+RUBY VERSION
+   ruby 2.2.2p95
+
+BUNDLED WITH
+   1.12.5
